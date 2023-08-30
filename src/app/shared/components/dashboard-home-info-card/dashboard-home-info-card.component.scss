@@ -1,0 +1,67 @@
+.d-h-i-card-container {
+    border-radius: 10px;
+    background: var(--white-ffffff, #FFF);
+    width: 240px;//100%;
+    padding: 10px;
+}
+.today-ads-income-img-bg,
+.new-visitors-img-bg,
+.new-request-img-bg,
+.pending-request-img-bg {
+    border-radius: 5px;
+    padding: 14px;
+}
+.today-ads-income-img-bg-color {
+    background: #ECFAF7;
+}
+.new-visitors-img-bg-color {
+    background: rgba(238, 159, 39, 0.1);
+}
+.new-request-img-bg-color {
+    background: rgba(196, 55, 4, 0.1);
+}
+.pending-request-img-bg-color {
+    background: rgba(167, 21, 191, 0.1);
+}
+.info-pregress-container {
+    padding: 6px;
+}
+.info-value-label {
+    color: #1B1C1E;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 19.682px;
+}
+.info-percent-label {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 22.635px;
+}
+.up-percent {
+    color: #45CB85;
+}
+.down-percent {
+    color: #C43704;
+}
+.info-title {
+    font-size: 16px;
+    font-weight: 700;
+}
+.info-sub-title {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+//bootstrap customize css!
+.progress, .progress-stacked {
+    height: 8px !important;
+}
+
+@media screen and (max-width: 1600px) and (min-width: 1024px) {
+    .info-title {
+        font-size: 15px;
+    }
+    .info-sub-title {
+        font-size: 11px;
+    }
+}

@@ -1,0 +1,77 @@
+<ng-container *ngIf="userDetail">
+    <div class="user-detail-container">
+        <div class="user-detail-nav-links">
+            <label class="user-detail-nav-link" (click)="goToList()">Block List Users</label>
+             > Details
+        </div>
+    
+        <div class="div-section user-profile-header">
+            <profile-title-photo [photo]="userDetail.photo"></profile-title-photo>
+    
+            <div style="padding: 10px 0;">
+                <label class="user-profile-name">{{userDetail.name}}</label>
+            </div>
+            <div>
+                <!-- <label
+                [ngStyle]="{'color': userDetail.isBlock === 'Blocked' ? 'red' : 'green'}">
+                    {{userDetail.isBlock}}
+                </label> -->
+                <label style="color: #C43704;padding-right: 10px;">{{userId}}</label>
+                <active-inactive-status [status]="userDetail.status"></active-inactive-status>
+            </div>
+        </div>
+    
+        <div class="div-section">
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label>Email or FB Name</label>
+                    <div class="user-detail-info-label">
+                        <label>{{userDetail.email}}</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label>Created Date</label>
+                    <div class="user-detail-info-label">
+                        <label>{{userDetail.createdAt}}</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label>User Level</label>
+                    <div class="user-detail-info-label">
+                        <label>{{userDetail.userLevel}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label>Number of Posts</label>
+                    <div class="user-detail-info-label">
+                        <label>{{userDetail.postCount}}</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label>Followers</label>
+                    <div class="user-detail-info-label">
+                        <label>{{userDetail.followerCount}}</label>
+                    </div>
+                </div>
+                <div class="col-sm"></div>
+            </div>
+        </div>
+        
+        <div class="div-section" style="text-align: end;">
+            <ng-container *ngIf="userDetail.isBlock === 'Blocked'">
+                <button type="button" class="btn btn-outline-success user-detail-block-btn" (click)="userUnblock()">
+                    <img src="../../../../../assets/images/general/check-green-no-bg.svg" style="cursor: pointer;">
+                    <label style="margin-left: 5px;cursor: pointer;">Unblock</label>
+                </button>
+            </ng-container>
+            <ng-container *ngIf="userDetail.isBlock === 'No Block'">
+                <button type="button" class="btn btn-outline-danger user-detail-block-btn" (click)="userBlock()">
+                    <img src="../../../../assets/images/dashboard/user/all-users/user-detail/block.svg" style="cursor: pointer;">
+                    <label style="margin-left: 5px;cursor: pointer;">Block</label>
+                </button>
+            </ng-container>
+        </div>
+    </div>
+</ng-container>

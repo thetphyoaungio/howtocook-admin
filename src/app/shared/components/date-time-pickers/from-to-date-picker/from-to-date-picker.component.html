@@ -1,0 +1,56 @@
+<div class="d-flex align-items-center justify-content-start">
+    <div class="p-2" style="padding: 0 !important;">
+        <div class="d-flex align-items-center">
+            <div class="p-2 htc-date-input" style="padding: 0 !important;">
+                <input 
+                type="text" 
+                class="date-picker"
+                matInput
+                ngxDaterangepickerMd
+                [locale]="{applyLabel: 'ok', format: 'MMM DD YYYY'}"
+                startKey="start" 
+                [(ngModel)]="selected_start"
+                name="startDate"  
+                [singleDatePicker]="true"
+                [autoApply]='true'
+                [placeholder]="'From'"
+                (startDateChanged)="onStartDateChanged($event, end)"
+                (keyup)="onKeyUp($event, start)"
+                #start/>
+            </div>
+            <div class="p-2" style="padding-left: 0 !important;">
+                <img src="../../../../../assets/images/general/cleaner-datetime.svg" 
+                id="datepicker-calenderEl"
+                class="ngx-daterangepicker-action date-calendar-img"
+                (click)="openDatepickerStart(start)">
+            </div>
+        </div>
+    </div>
+    <div class="p-2" style="padding: 0 !important;">
+        <div class="d-flex align-items-center">
+            <div class="p-2 htc-date-input" style="padding: 0 !important;">
+                <input 
+                type="text" 
+                class="date-picker"
+                matInput
+                ngxDaterangepickerMd
+                [locale]="{applyLabel: 'ok', format: 'MMM DD YYYY'}" 
+                endKey="end" 
+                [(ngModel)]="selected_end"
+                name="endDate"  
+                [singleDatePicker]="true" 
+                [autoApply]='true' 
+                [placeholder]="'To'"
+                (endDateChanged)="onEndDateChanged($event, start)"
+                (keyup)="onKeyUp($event, end)"
+                #end/>
+            </div>
+            <div class="p-2" style="padding-left: 0 !important;">
+                <img src="../../../../../assets/images/general/cleaner-datetime.svg" 
+                id="datepicker-calenderEl"
+                class="ngx-daterangepicker-action date-calendar-img"
+                (click)="openDatepickerEnd(end)">
+            </div>
+        </div>
+    </div>
+</div>

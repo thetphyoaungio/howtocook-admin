@@ -1,0 +1,26 @@
+<div class="visitor-chart-card">
+    <div class="d-flex align-items-center flex-wrap">
+        <div class="p-2 flex-grow-1">
+            <label class="visitors-analy-title">Visitors Analytics</label>
+        </div>
+        <div class="p-2">
+            <htc-datetime-period-dropdown 
+            [singleSelectInput]="selectedDateTimePeriod" 
+            (onChangeDateTimePeriod)="onDateTimePeriodChange($event)">
+            </htc-datetime-period-dropdown>
+        </div>
+    </div>
+
+    <div class="d-flex flex-wrap align-items-start">
+        <div class="p-2" style="padding: 0 0 0 0.5rem !important;">
+            <label class="chart-visitors-label">Visitors</label>
+        </div>
+        <div class="p-2 flex-grow-1" style="padding: 0 !important;">
+            <div id="chartdiv" style="width: 100%; height: 500px;"></div>
+        </div>
+    </div>
+
+    <div class="d-flex remover-for-chart-cpyright">
+        <div class="p-2 chart-date-label">Date ({{periodTxt}})</div>
+    </div>
+</div>

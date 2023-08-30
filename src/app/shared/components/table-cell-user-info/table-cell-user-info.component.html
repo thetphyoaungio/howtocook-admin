@@ -1,0 +1,16 @@
+<div class="d-flex align-items-center">
+    <div class="p-2" style="padding: 0 !important;">
+        <ng-container *ngIf="user.photo;else NoProfileImgDefault">
+            <img [src]="user.photo" class="table-cell-profile-img">
+        </ng-container>
+        <ng-template #NoProfileImgDefault>
+            <img src="../../../../../assets/images/shared/header/img_avatar.png" class="table-cell-profile-img">
+        </ng-template>
+    </div>
+    <div class="p-2" style="padding: 0 0 0 5px !important;text-align: start;">
+        <label class="account-name-label table-cell-truncate-1">{{user.name}}</label>
+        <div>
+            <label class="account-email-label table-cell-truncate-1">{{user.email}}</label>
+        </div>
+    </div>
+</div>

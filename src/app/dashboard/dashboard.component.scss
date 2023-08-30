@@ -1,0 +1,43 @@
+.padding-no {
+    padding: 0 !important;
+}
+.menu-p-2 {
+    min-width: 270px !important;
+    transition: min-width .5s;
+}
+.menu-p-2-collapse {
+    min-width: 55px !important;
+    transition: min-width .5s;
+}
+#body-content {
+    overflow-y: auto;
+    position: relative;
+    top: 0px;
+    padding: 16px 25px !important;
+    padding-bottom: 0 !important;
+    background: #F1F4FA;
+}
+
+.htc-toast {
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.12);
+    background: #fff !important;
+    transition: display 2s !important;
+}
+.htc-toast-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+.htc-toast-description {
+    color: #7E7E7E;
+    font-size: 14px;
+    font-weight: 500;
+}
+.htc-toast-close-icon:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}
+::ng-deep ngx-select-dropdown .ngx-dropdown-container > button > .nsdicon-angle-down:before {
+    top: 4px !important;
+}

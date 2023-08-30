@@ -1,0 +1,89 @@
+<ng-container *ngIf="adminDetail">
+    <div class="user-detail-container">
+        <div class="user-detail-nav-links">
+            Admin Management > 
+            <label class="user-detail-nav-link" (click)="goToList()">Admin List</label>
+             > Details
+        </div>
+    
+        <div class="div-section user-profile-header">
+            <profile-title-photo [photo]="adminDetail.profile"></profile-title-photo>
+    
+            <div style="padding: 10px 0;">
+                <label class="user-profile-name">{{adminDetail.userName}}</label>
+            </div>
+            <div>
+                <ng-container *ngIf="adminDetail.status===true;else InactiveImgDetail">
+                        <img 
+                        src="../../../../../assets/images/dashboard/user/all-users/list/active-green.svg" 
+                        alt="active-user" 
+                        style="margin-left: 10px;">
+                </ng-container>
+                <ng-template #InactiveImgDetail>
+                        <img 
+                        src="../../../../../assets/images/dashboard/user/all-users/list/inactive-grey.svg" 
+                        alt="inactive-user" 
+                        style="margin-left: 10px;">
+                </ng-template>
+                <label style="color: grey;margin-left: 5px;">
+                    {{adminDetail.status===true?'Active':(adminDetail.status===false?'Inactive':'-')}}
+                </label>
+            </div>
+        </div>
+    
+        <div class="div-section">
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label>Email</label>
+                    <div class="user-detail-info-label">
+                        <label>{{adminDetail.email || '-'}}</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label>Login Name</label>
+                    <div class="user-detail-info-label">
+                        <label>{{adminDetail.loginName || '-'}}</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label>Phone Number</label>
+                    <div class="user-detail-info-label">
+                        <label>{{adminDetail.phoneNumber || '-'}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label>Last Login Date</label>
+                    <div class="user-detail-info-label">
+                        <label>{{adminDetail.loginDate || '-'}}</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label>Registered Date</label>
+                    <div class="user-detail-info-label">
+                        <label>{{adminDetail.createdAt || '-'}}</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label>Password</label>
+                    <div class="user-detail-info-label">
+                        <label>***********</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="div-section" style="text-align: end;">
+            <button type="button" class="btn btn-outline-secondary user-detail-block-btn" (click)="goToEdit()">
+                <img src="../../../../../assets/images/general/edit-black-no-bg.svg" style="cursor: pointer;">
+                <label style="margin-left: 5px;cursor: pointer;">Edit</label>
+            </button>
+
+            <button type="button" class="btn btn-outline-danger user-detail-block-btn" (click)="showDeleteDialog()">
+                <img src="../../../../../assets/images/general/delete-red-no-bg.svg" style="cursor: pointer;">
+                <label style="margin-left: 5px;cursor: pointer;">Delete</label>
+            </button>
+        </div>
+    </div>
+</ng-container>

@@ -1,0 +1,92 @@
+<div class="d-flex align-items-center justify-content-between">
+    <div class="p-2" style="padding: 0 !important;">
+        <label class="main-title">Admin Management</label>
+    </div>
+
+    <div class="p-2" style="padding: 0 !important;">
+        <htc-export-button 
+        [htcServic]="adminService" 
+        [query]="expQuery$" 
+        [fileName]="'admin-users'"></htc-export-button>
+    </div>
+</div>
+
+<div class="d-flex align-items-center filters-search-container">
+    <div class="p-2 flex-grow-1" style="padding-left: 0 !important;">
+        <button class="btn btn-outline-warning create-btn" (click)="createAdmin()">
+            <label>Create</label>
+            <i class="bi bi-plus"></i>
+        </button>
+    </div>
+    <div class="p-2" style="padding-right: 0 !important;">
+        <htc-global-search></htc-global-search>
+    </div>
+</div>
+
+<ng-container *ngIf="alladmins && alladmins.length>0">
+    <div >
+        <div  class="table-container">
+            <div class="d-flex align-items-center justify-content-between table-header">
+                <div class="p-2" style="width: 8%;text-align: center;">No</div>
+                <div class="p-2" style="width: 25%;text-align: center;">Name</div>
+                <div class="p-2" style="width: 15%;text-align: center;">Last Login Date</div>
+                <div class="p-2" style="width: 22%;text-align: center;">Login Name</div>
+                <div class="p-2" style="width: 15%;text-align: center;">Action</div>
+                <div class="p-2" style="width: 15%;text-align: center;">Details</div>
+            </div>
+    
+            <div class="table-body">
+                <div class="d-flex align-items-center" *ngFor="let admin of alladmins | paginate: { itemsPerPage: perPage, currentPage: p, totalItems: totalRecords }; let idx=index;">
+                    <div class="p-2" style="width: 8%;text-align: center;">
+                        <label style="color: grey;">{{p > 1 ? (((perPage*p) - perPage) + idx + 1): (idx + 1)}}</label>
+                    </div>
+                    <div class="p-2" style="width: 25%;">
+                        <div class="d-flex align-items-center">
+                            <div class="p-2" style="padding: 0 !important;">
+                                <ng-container *ngIf="admin.profile;else NoProfileImgDefault">
+                                    <img [src]="admin.profile" class="table-cell-profile-img" style="margin-left: 25px;">
+                                </ng-container>
+                                <ng-template #NoProfileImgDefault>
+                                    <img src="../../../../../assets/images/shared/header/img_avatar.png" class="table-cell-profile-img" style="margin-left: 25px;">
+                                </ng-template>
+                            </div>
+                            <div class="p-2 flex-grow-1" style="padding: 0 !important;">
+                                <label class="account-name-label table-cell-truncate-1" style="margin-left: 5px;">{{admin.userName}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-2" style="width: 15%;text-align: center;">
+                        <label>{{admin.loginDate || '-'}}</label>
+                    </div>
+                    <div class="p-2" style="width: 22%;">
+                        <label class="table-cell-truncate-1" style="margin-left: 35%;">{{admin.loginName}}</label>
+                    </div>
+                    <div class="p-2" style="width: 15%;text-align: center;">
+                        <img src="../../../../../assets/images/dashboard/admin-manage/list/edit.svg" class="table-action-img"
+                        (click)="editAdmin(admin)">
+
+                        <img src="../../../../../assets/images/dashboard/admin-manage/list/delete.svg" class="table-action-img"
+                        (click)="deleteAdmin(admin)">
+                    </div>
+                    <div class="p-2" style="width: 15%;text-align: center;">
+                        <label class="details-link" (click)="gotoDetail(admin)">View</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="d-flex justify-content-end align-items-center">
+            <div class="p-2" style="padding-right: 0 !important;">
+                <pagination-controls 
+                class="my-pagination-bg my-pagination" 
+                [autoHide]="true" 
+                [responsive]="true" 
+                (pageChange)="p = $event;getAdminUsers()">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="alladmins && alladmins.length===0">
+    <there-is-no [description]="'There is No admins...'"></there-is-no>
+</ng-container>

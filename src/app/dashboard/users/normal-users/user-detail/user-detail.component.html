@@ -1,0 +1,152 @@
+<ng-container *ngIf="userDetail">
+    <div class="user-detail-container">
+        <div class="user-detail-nav-links">
+            User > 
+            <label class="user-detail-nav-link" (click)="goToList()">Normal Users</label>
+             > Details
+        </div>
+    
+        <div class="div-section user-profile-header">
+            <profile-title-photo [photo]="userDetail.photo"></profile-title-photo>
+    
+            <div style="padding: 10px 0;">
+                <label class="user-profile-name">{{userDetail.name}}</label>
+            </div>
+            <div>
+                <active-inactive-status [status]="userDetail.status"></active-inactive-status>
+            </div>
+        </div>
+    
+        <div class="div-section">
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label>Email or FB Name</label>
+                    <div class="user-detail-info-label">
+                        <label>{{userDetail.email}}</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label>Created Date</label>
+                    <div class="user-detail-info-label">
+                        <label>{{userDetail.createdAt}}</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label>User Level</label>
+                    <div class="user-detail-info-label">
+                        <label>{{userDetail.userLevel}}</label>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="div-section" style="text-align: end;">
+            <button type="button" class="btn btn-outline-danger user-detail-block-btn" (click)="userBlock()">
+                <img src="../../../../assets/images/dashboard/user/all-users/user-detail/block.svg" alt="block-user-img" style="cursor: pointer;">
+                <label style="margin-left: 5px;cursor: pointer;">Block</label>
+            </button>
+        </div>
+    </div>
+
+    <ng-container *ngIf="commentActivities && commentActivities.length>0">
+        <div style="margin-top: 22px;">
+            <div>
+                <label class="post-list-title">Comment Activity</label>
+            </div>
+            
+            <div >
+                <div  class="table-container">
+                    <div class="d-flex align-items-center justify-content-between table-header">
+                        <div class="p-2" style="width: 10%;text-align: center;">No</div>
+                        <div class="p-2" style="width: 33%;">Title</div>
+                        <div class="p-2" style="width: 25%;">Comment Date</div>
+                        <div class="p-2" style="width: 25%;">Activity</div>
+                        <div class="p-2" style="width: 8%;text-align: center;">View</div>
+                    </div>
+            
+                    <div class="table-body">
+                        <div class="d-flex align-items-center" 
+                        *ngFor="let cmtaty of commentActivities 
+                        | paginate: { itemsPerPage: perPage, currentPage: p, totalItems: totalCommentActivityCount };let idx=index;">
+                            <div class="p-2" style="width: 10%;text-align: center;">
+                                <label style="color: grey;">{{p > 1 ? (((perPage*p) - perPage) + idx + 1): (idx + 1)}}</label>
+                            </div>
+                            <div class="p-2" style="width: 33%;">
+                                <label>{{cmtaty.title}}</label>
+                            </div>
+                            <div class="p-2" style="width: 25%;">
+                                <label>{{cmtaty.date}}</label>
+                            </div>
+                            <div class="p-2" style="width: 25%;">
+                                <label><span style="color:#C43704;font-weight: 600;">{{cmtaty.activity.username}}</span> {{cmtaty.activity.activityDescription}}</label>
+                            </div>
+                            <div class="p-2" style="width: 8%;text-align: center;">
+                                <label class="details-link" (click)="showCommentActivityDetail(cmtaty)">View</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="d-flex justify-content-end align-items-center">
+                    <div class="p-2" style="padding-right: 0 !important; ">
+                        <pagination-controls 
+                        class="my-pagination-bg my-pagination" 
+                        [autoHide]="true" 
+                        [responsive]="true" 
+                        (pageChange)="p = $event">
+                        </pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="commentActivities && commentActivities.length===0">
+        <there-is-no [description]="'There is No Comment Activities...'"></there-is-no>
+    </ng-container>
+</ng-container>
+
+<!-- dialogs -->
+<div id="commentActivityDetailDialog" class="htc-modal">
+    <ng-container *ngIf="commentActivityDetail">
+        <div class="htc-modal-content" [ngStyle]="{'max-width':deviceInnerWidth>=446?'530px': '300px'}" style="border-radius: 10px !important;">
+            
+            <div class="htc-modal-header" style="padding-bottom: 10px !important;">
+                <div class="d-flex justify-content-start align-items-center flex-wrap" style="text-align: start;padding: 0 11px;">
+                    <div class="p-2 flex-grow-1" style="align-items: center;display: flex;">
+                        
+                        <profile-title-photo [photo]="commentActivityDetail.commentDetail.userImg" [width]="50" [height]="50"></profile-title-photo>
+
+                        <div style="display: inline-block;margin-left: 5px;">
+                            <label>{{commentActivityDetail.commentDetail.userName}}</label>
+                            <div>
+                                <label style="color: #7E7E7E;font-size: 14px;">{{commentActivityDetail.commentDetail.userEmail}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <label>{{commentActivityDetail.date}}</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="htc-modal-body" style="padding-top: 0 !important;">
+                <p style="font-size: 14px;text-align: justify !important;">
+                    {{commentActivityDetail.commentDetail.comment||'- No Comment -'}}
+                </p>
+            </div>
+
+            <div class="htc-modal-footer user-block-dialog-footer" style="padding: 10px !important;">
+                <div class="d-flex justify-content-end align-items-center flex-wrap">
+                    <div class="p-2">
+                        <button 
+                        class="btn btn-danger" 
+                        style="padding: 7px 14px !important;min-width: 90px;"
+                        (click)="okCmtActivityDetail()">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

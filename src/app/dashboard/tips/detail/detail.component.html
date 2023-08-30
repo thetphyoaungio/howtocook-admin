@@ -1,0 +1,87 @@
+<ng-container *ngIf="detailData">
+
+    <div class="user-detail-container">
+        <div class="user-detail-nav-links">
+            <label class="user-detail-nav-link" (click)="goToList()">Tips</label>
+             > Tip Detail
+        </div>
+    
+        <div class="d-flex">
+            <div class="p-2 flex-grow-1" style="max-width: 86%;">
+                
+                <div class="div-section user-profile-header">
+                    <label>
+                        <ng-container *ngIf="profilePreView; else DefProfilePreView">
+                            <img [src]="profilePreView" class="tip-title-photo">
+                        </ng-container>
+                        <ng-template #DefProfilePreView>
+                            <img src="../../../../assets/images/general/landscape-def-img.svg" class="tip-title-photo">
+                        </ng-template>
+                    </label>
+                </div>
+
+                <div class="div-section">
+                    <div class="d-flex align-items-center flex-wrap">
+                        <div class="p-2" style="padding-left: 0 !important;">
+                            <label style="font-weight: bold;">Post Admin</label>
+                            <label class="post-detail-title-content-label">{{detailData.user?.name}}</label>
+                        </div>
+                        <div class="p-2">
+                            <label style="font-weight: bold;">Date</label>
+                            <label class="post-detail-title-content-label">{{detailData.createdAt}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-section">
+                    <label style="font-weight: bold;">ခေါင်းစဥ်</label>
+                    <label class="post-detail-title-content-label">{{detailData.title}}</label>
+                </div>
+
+                <div class="div-section">
+                    <label style="font-weight: bold;">အကြောင်းအရာ</label>
+                    <label class="post-detail-title-content-label">{{detailData.description}}</label>
+                </div>
+
+                <div class="div-section" *ngFor="let step of detailData.steps;let idex=index;">
+                    <label style="font-weight: bold;">အဆင့် {{idex + 1}}</label>
+                    <label class="post-detail-title-content-label">{{step.name}}</label>
+                </div>
+
+            </div>
+            
+            <div class="p-2">
+                <div class="form-check form-switch">
+                    <label class="form-check-label" for="ispublicEl">Public</label>
+    
+                    <ng-container *ngIf="detailData.isPublic;else NoPublic">
+                        <input 
+                        id="ispublicEl"
+                        class="form-check-input" 
+                        type="checkbox"  
+                        name="isPublic" checked
+                        (change)="changeIsPublic($event)">
+                    </ng-container>
+                    <ng-template #NoPublic>
+                        <input 
+                        id="ispublicEl"
+                        class="form-check-input" 
+                        type="checkbox"  
+                        name="isPublic" 
+                        (change)="changeIsPublic($event)">
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="div-section action-btn-container">
+        <button type="button" class="btn btn-outline-secondary user-detail-block-btn" (click)="gotoEdit()">
+            <img src="../../../../assets/images/dashboard/admin-manage/list/edit.svg" class="table-action-img">
+            <label style="margin-left: 5px;cursor: pointer;">Edit</label>
+        </button>
+
+        <button type="button" class="btn btn-outline-danger user-detail-block-btn" (click)="onDelete()">
+            <img src="../../../../assets/images/dashboard/admin-manage/list/delete.svg" class="table-action-img">
+            <label style="margin-left: 5px;cursor: pointer;">Delete</label>
+        </button>
+    </div>
+</ng-container>

@@ -1,0 +1,15 @@
+<ng-container *ngIf="tableData">
+    <users-table 
+    [tableData]="tableData" 
+    [p]="p"
+    [perPage]="perPage" 
+    [totalRecords]="totalRecords" 
+    [targetService]="userService"
+    [exportQuery]="expQuery$"
+    [exportFileName]="'blocked-users'"
+    (onChangeDropdownValue)="onChangeDropdownFilterValue($event)"
+    (onGlobalSearch)="onGlobalSearchData($event)"
+    (onDetail)="gotoDetail($event)"
+    (ongetAll)="onPaginChange($event)"
+    ></users-table>
+</ng-container>

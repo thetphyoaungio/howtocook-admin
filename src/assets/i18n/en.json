@@ -1,0 +1,20 @@
+{
+    "htc-title":"How To Cook",
+    "welcome-back-lbl":"Welcome Back", 
+    "sign-in-with-acc-lbl":"Sign in with Your Account", 
+    "sign-in-to-acc-title":"Sign In To Your Account",
+    "login-as-admin-lbl":"Login as a Admin",
+    "username-lbl":"User Name",
+    "password-lbl":"Password",
+    "username-require-lbl":"User Name is require!",
+    "password-require-lbl":"Password is require!",
+    "enter-username-lbl":"Enter User Name",
+    "enter-pp-lbl":"Enter Your Password",
+
+    "atleast-3-username-lbl":"User Name must have at least three(3) characters!",
+    "atleast-6-pw-lbl":"Password must have at least six(6) characters!",
+
+    "show-password-lbl":"Show Password",
+    "rember-me-lbl":"Remember Me",
+    "login-btn-lbl":"Log in"
+}

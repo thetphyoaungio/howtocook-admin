@@ -1,0 +1,168 @@
+<ng-container *ngIf="postDetail">
+    <div class="post-detail-container">
+        <div class="user-detail-nav-links">
+            <label class="user-detail-nav-link" (click)="backFromDetail('all-users')">Chef Users</label> >
+            <label class="user-detail-nav-link" (click)="backFromDetail('user-detail')">User Detail</label> > Detail Post
+        </div>
+
+        <div class="d-flex align-items-center justify-content-end flex-wrap" style="font-size: 18px;">
+            <div class="p-2">
+                <label class="postcomment-view-nav-link" id="post-select-id" (click)="postCommentsClick('post')" style="cursor: pointer;">Post</label>
+            </div>
+            <div class="p-2">
+                <label class="postcomment-view-nav-link" id="comments-select-id" (click)="postCommentsClick('comments')" style="cursor: pointer;">Comments</label>
+            </div>
+        </div>
+
+        <ng-container *ngIf="isPostView; else CommentsView">
+            <div class="div-section" style="text-align: center;">
+                <ng-container *ngIf="postDetail.photo; else DefaultImg">
+                    <img class="post-detail-img" [src]="postDetail.photo">
+                </ng-container>
+                <ng-template #DefaultImg>
+                    <img src="../../../../assets/images/general/landscape-def-img.svg" class="default-post-detail-title-photo">
+                </ng-template>
+            </div>
+    
+            <div class="post-body-container">
+                <div class="d-flex align-items-center flex-wrap" style="margin-bottom: 10px;">
+                    <div class="p-2">
+                        <img src="../../../../assets/images/dashboard/user/all-users/post/detail/like.svg" 
+                        width="16px"
+                        alt="like-img">
+                        <label class="post-detail-like-label">{{postDetail.reactionCount}}</label>
+                    </div>
+                    <div class="p-2">
+                        <img src="../../../../assets/images/dashboard/user/all-users/post/detail/share.svg" 
+                        width="16px"
+                        alt="like-img">
+                        <label class="post-detail-like-label">{{postDetail.shareCount}}</label>
+                    </div>
+                    <div class="p-2 flex-grow-1">
+                        <img src="../../../../assets/images/dashboard/user/all-users/post/detail/book_mark.svg" 
+                        width="12px"
+                        alt="like-img">
+                        <label class="post-detail-like-label">{{postDetail.savedCount}}</label>
+                    </div>
+        
+                    <div class="p-2" style="padding-right: 0 !important;">
+                        <label>
+                            <span style="color:grey;font-weight: bold;">Time: </span>  {{postDetail.cookingTime}}
+                        </label>
+                    </div>
+                    <div class="p-2">|</div>
+                    <div class="p-2" style="padding-left: 0 !important;">
+                        <label>
+                            {{postDetail.servingCount}} 
+                            <span style="color:grey;font-weight: bold;"> Customers</span>
+                        </label>
+                    </div>
+                </div>
+        
+                <div class="div-section">
+                    <label style="font-weight: bold;">ခေါင်းစဥ်</label>
+                    <label class="post-detail-title-content-label">{{postDetail.title}}</label>
+                </div>
+        
+                <div class="div-section">
+                    <label style="font-weight: bold;">အကြောင်းအရာ</label>
+                    <label class="post-detail-title-content-label">{{postDetail.description}}</label>
+                </div>
+        
+                <div class="div-section">
+                    <label style="font-weight: bold;">ပါဝင်ပစ္စည်းများ</label>
+                    <div class="post-detail-title-content-label ingredients-container">
+                        <ng-container *ngIf="postDetail.ingredients.length>0;else NoIngred">
+                            <div class="d-flex align-items-center justify-content-start flex-wrap"
+                            style="margin-bottom: 11px;"
+                            *ngFor="let its of postDetail.ingredients; let idx=index;">
+                                <label class="post-detail-ingredients-num-label"
+                                [ngClass]="idx > 8 ? 'post-ingredents-num-gret-than-9-label' : ''">{{idx + 1}}</label>
+            
+                                <label style="margin-left: 10px;">{{its.name}}</label>
+                            </div>
+                        </ng-container>
+                        <ng-template #NoIngred>-</ng-template>
+                    </div>
+                </div>
+        
+                <div class="div-section" *ngFor="let step of postDetail.steps; let idx=index;">
+                    <label style="font-weight: bold;">အဆင့် {{idx + 1}}</label>
+                    
+                    <ng-container *ngIf="step.photo">
+                        <br>
+                        <img [src]="step.photo" class="post-detail-recipe-img">
+                    </ng-container>
+                    
+                    <label class="post-detail-title-content-label">{{step.name}}</label>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-template #CommentsView>
+            <ng-container *ngIf="postComments && postComments.length>0">
+                <div class="container comments-container">
+                    <div class="d-flex align-items-center flex-wrap" style="font-size: 14px; color:#C43704">
+                        <div class="p-2 flex-grow-1">
+                            <label class="view-comments-link">
+                                {{commentTotalCount}} Comments
+                            </label>
+                        </div>
+                        <div class="p-2">
+                            <label class="view-comments-link" (click)="viewAllComments()">View All Comments</label>
+                        </div>
+                    </div>
+
+                    <div *ngFor="let comment of postComments" style="padding-bottom: 15px;">
+                        <div class="d-flex align-items-center flex-wrap">
+                            <div class="p-2">
+                                <ng-container *ngIf="comment.user?.photo;else NoProfileImgDefault">
+                                    <img [src]="comment.user?.photo" class="table-cell-profile-img">
+                                </ng-container>
+                                <ng-template #NoProfileImgDefault>
+                                    <img src="../../../../../assets/images/shared/header/img_avatar.png" class="table-cell-profile-img">
+                                </ng-template>
+                            </div>
+                            <div class="p-2" style="padding-left: 0 !important;">
+                                <label style="font-weight: 700;">{{comment.user?.name}}</label>
+                            </div>
+                            <div class="p-2 flex-grow-1" style="padding-left: 0 !important;">
+                                <label style="font-size: 12px;">{{comment.createdAt}}</label>
+                            </div>
+                            <div class="p-2" style="padding-left: 0 !important;">
+                                <img src="../../../../../assets/images/dashboard/user/all-users/post/detail/like.svg" width="18px">
+                                <label style="margin-left: 5px;font-size: 14px;">{{comment.reaction}}</label>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-center flex-wrap">
+                            <div class="p-2 comment-txt-first-p-2"></div>
+                            <div class="p-2" style="padding-top: 0 !important;">
+                                <p class="post-comment-txt">{{comment.comment}}</p>
+                            </div>
+                        </div>
+
+                        <ng-container *ngIf="comment.photo">
+                            <div style="margin-bottom: 20px;">
+                                <img [src]="comment.photo" width="100%" height="160px" style="border-radius: 10px;">
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="container d-flex justify-content-end align-items-center flex-wrap" style="width: 52%;">
+                    <div class="p-2">
+                        <img src="../../../../../assets/images/dashboard/user/all-users/post/detail/comments-view.svg" 
+                        class="comments-view-btn"
+                        alt="comments-view-icon"
+                        (click)="commentsViewLoadIconClick()">
+                    </div>
+                </div>
+
+            </ng-container>
+            <ng-container *ngIf="postComments && postComments.length===0">
+                <there-is-no [description]="'There is No Comments...'"></there-is-no>
+            </ng-container>
+        </ng-template>
+    </div>
+</ng-container>

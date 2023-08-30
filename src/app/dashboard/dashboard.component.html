@@ -1,0 +1,40 @@
+<div class="d-flex">
+    <div class="p-2 padding-no menu-p-2" id="htc-menu-sidebarElid">
+        <htc-menu-sidebar></htc-menu-sidebar>
+    </div>
+
+    <div class="p-2 flex-fill padding-no">
+        
+        <htc-header></htc-header>
+        
+        <div id="body-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="position-fixed end-0" style="margin: 5px;" [ngStyle]="{'top': headerContainerHeight}">
+    <div id="htcToast" class="toast htc-toast fade-in-image" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
+            <div class="d-flex align-items-center">
+                <div class="p-2">
+                    <img [src]="toastData?.icon">
+                </div>
+                <div class="p-2 flex-grow-1">
+                    <label class="htc-toast-title">{{toastData?.title}}</label>
+                    <div>
+                        <label class="htc-toast-description">{{toastData?.description}}</label>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <img 
+                    id="toastCloseIconID"
+                    class="htc-toast-close-icon" 
+                    src="../../../../../assets/images/general/toast-close.svg" 
+                    alt="close-toast">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

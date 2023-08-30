@@ -1,0 +1,28 @@
+.date-report-home-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2.2%;
+}
+.date-report-home-card-header {
+    text-align: center;
+    padding: 15px;
+    background: #F9FAFB;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.date-report-home-card-body {
+    padding: 15px 15%;
+}
+.my-pagination ::ng-deep .ngx-pagination .current {
+    background: #C43704;
+    border-radius: 3px;
+}
+.my-pagination-bg ::ng-deep .ngx-pagination {
+    padding: 4px 0px;
+    border-radius: 3px;
+    background: #FFF;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.13);
+}

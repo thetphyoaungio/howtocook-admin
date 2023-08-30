@@ -1,0 +1,104 @@
+<div class="d-flex align-items-center justify-content-between">
+    <div class="p-2" style="padding: 0 !important;">
+        <label class="main-title">{{title}}</label>
+    </div>
+
+    <div class="p-2" style="padding: 0 !important;">
+        <htc-export-button 
+        [htcServic]="targetService" 
+        [query]="exportQuery" 
+        [fileName]="exportFileName"></htc-export-button>
+    </div>
+</div>
+
+<div class="d-flex align-items-center filters-search-container">
+    <div class="p-2 flex-grow-1" style="padding: 0 !important;">
+        <label>Filter with: </label>
+    </div>
+    
+    <div *ngFor="let filter of filters" class="p-2" style="padding-right: 0 !important;">
+        <ngx-select-dropdown  
+            (change)="onChangeDropdown($event, filter.name)" 
+            tabindex="0"
+            [multiple]="false"  
+            [config]="filter.config" 
+            [options]="filter.options">
+        </ngx-select-dropdown>
+    </div>
+
+    <div class="p-2" style="padding-right: 0 !important;">
+        <htc-global-search></htc-global-search>
+    </div>
+</div>
+
+<ng-container *ngIf="users && users.length>0">
+    <div>
+        <div  class="table-container">
+            <div class="d-flex align-items-center justify-content-between table-header">
+                <div class="p-2" style="width: 10%;text-align: center;">No</div>
+                <div class="p-2" style="width: 27%;padding-left: 65px !important;">Account</div>
+                <div class="p-2" style="width: 17%;">Created Date</div>
+                <div class="p-2" style="width: 18%;">User Level</div>
+                <div class="p-2" style="width: 14%;"
+                [ngStyle]="{'text-align': notSameStatusFields.includes(title) ? 'center' : 'start'}">Status</div>
+                <div class="p-2" style="width: 14%;text-align: center;">Details</div>
+            </div>
+    
+            <div class="table-body">
+                <div class="d-flex align-items-center" 
+                *ngFor="let user of users | paginate: { itemsPerPage: perPage, currentPage: p, totalItems: totalRecords }; let idx=index;">
+                    <div class="p-2" style="width: 10%;text-align: center;">
+                        <label style="color: grey;">{{p > 1 ? (((perPage*p) - perPage) + idx + 1): (idx + 1)}}</label>
+                    </div>
+                    <div class="p-2" style="width: 27%;">
+                        <table-cell-user-info [user]="{id:user.id, name:user.name, email:user.email, photo:user.photo }"></table-cell-user-info>
+                    </div>
+                    <div class="p-2" style="width: 17%;">
+                        <label>{{user.createdAt}}</label>
+                    </div>
+                    <div class="p-2" style="width: 18%;">
+                        <label>{{user.userLevel}}</label>
+                    </div>
+                    <div class="p-2" style="width: 14%;"
+                    [ngStyle]="{'text-align': notSameStatusFields.includes(title) ? 'center' : 'start'}">
+                        <ng-container *ngIf="notSameStatusFields.includes(title);else SameStatusFields">
+                            <ng-container *ngIf="user.requestedStatus">
+                                <label [ngClass]="user.requestedStatus === 'Requested' ? 'req-label' : (user.requestedStatus === 'Accepted' ? 'solved-label' : '')">
+                                    {{user.requestedStatus}}
+                                </label>
+                            </ng-container>
+
+                            <ng-container *ngIf="user.isBlock">
+                                <label style="color: red;">
+                                    {{user.isBlock}}
+                                </label>
+                            </ng-container>
+
+                        </ng-container>
+                        <ng-template #SameStatusFields>
+                            <active-inactive-status [status]="user.status"></active-inactive-status>
+                        </ng-template>
+                    </div>
+                    <div class="p-2" style="width: 14%;text-align: center;">
+                        <label class="details-link" (click)="gotoDetail(user)">View</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="d-flex justify-content-end align-items-center">
+            <div class="p-2" style="padding-right: 0 !important; ">
+                <pagination-controls 
+                class="my-pagination-bg my-pagination" 
+                [autoHide]="true" 
+                [responsive]="true" 
+                (pageChange)="p = $event; onGetAllData();">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="users && users.length===0">
+    <there-is-no [description]="thereIsNoText"></there-is-no>
+</ng-container>

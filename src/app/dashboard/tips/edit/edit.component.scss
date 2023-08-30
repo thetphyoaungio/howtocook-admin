@@ -1,0 +1,52 @@
+.btn {
+    width: auto !important;
+    margin-right: 0 !important;
+}
+.form-switch {
+    display: flex !important;
+    justify-content: center !important;
+
+    input {
+        min-width: 40px !important;
+    }
+}
+.form-check-input {
+    cursor: pointer !important;
+}
+.form-check-input:checked {
+    background-color: #C43704;
+    border-color: #C43704;
+}
+.form-check-label {
+    margin-right: 46px;
+    font-weight: bold;
+}
+
+
+.please-add-photo-lbl {
+    color: #000 !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+}
+.user-detail-container {
+    background: #EDEDED !important;
+}
+
+
+.tip-create-photo:hover {
+    opacity: 0.5;
+}
+.tip-title-photo {
+    width: 134px;
+    height: 134px;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+}
+.add-more-steps-btn {
+    color: #fff !important;
+    background: #EE9F27 !important;
+}
+.add-more-steps-btn:hover {
+    opacity: 0.8;
+}

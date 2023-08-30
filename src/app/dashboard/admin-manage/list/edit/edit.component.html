@@ -1,0 +1,201 @@
+<div class="user-detail-container">
+    <div class="user-detail-nav-links">
+        <label class="user-detail-nav-link" (click)="goToList()">{{!returnTarget ? 'Admin List' : 'Profile Detail'}}</label>
+         > Edit
+    </div>
+    
+    <div class="div-section user-profile-header">
+        <label for="file-input">
+            <div style="position: relative;">
+                <ng-container *ngIf="profilePreview; else DefProfilePreView">
+                    <img 
+                    class="user-detail-img user-create-profile-img"
+                    [src]="profilePreview" 
+                    for="file-input">
+                </ng-container>
+                <ng-template #DefProfilePreView>
+                    <img 
+                    class="user-detail-img user-create-profile-img"
+                    src="../../../../../assets/images/shared/header/img_avatar.png" 
+                    for="file-input">
+                </ng-template>
+
+                <i class="bi bi-camera-fill user-edit-profile-icon"></i>
+            </div>
+            
+            <input id="file-input" type="file" accept="image/*" (change)="addAdminPhoto($event)" style="display: none;" />
+        </label>
+        
+        <div style="padding: 10px 0;">
+            <label class="user-profile-name">{{adminDetail?.userName}}</label>
+        </div>
+        <div>
+            <ng-container *ngIf="adminDetail?.status===true;else InactiveImgDetail">
+                    <img 
+                    src="../../../../../assets/images/dashboard/user/all-users/list/active-green.svg" 
+                    alt="active-user" 
+                    style="margin-left: 10px;">
+            </ng-container>
+            <ng-template #InactiveImgDetail>
+                    <img 
+                    src="../../../../../assets/images/dashboard/user/all-users/list/inactive-grey.svg" 
+                    alt="inactive-user" 
+                    style="margin-left: 10px;">
+            </ng-template>
+
+            <label style="color: grey;margin-left: 5px;">
+                {{adminDetail?.status===true?'Active':(adminDetail?.status===false?'Inactive':'-')}}
+            </label>
+        </div>
+    </div>
+    
+    <div class="div-section">
+        <form [formGroup]="editForm" aria-labelledby="title">
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label class="htc-form-input-lbl">User Name</label>
+                    <div>
+                        <input 
+                        class="form-control"
+                        formControlName="userName" 
+                        name="userName" 
+                        type="text" 
+                        id="input-userName" 
+                        autocomplete="off"
+                        [required]="false"
+                        readonly>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label class="htc-form-input-lbl">Login Name</label>
+                    <div>
+                        <input 
+                        class="form-control"
+                        formControlName="loginName" 
+                        name="loginName" 
+                        type="text" 
+                        id="input-loginName"  
+                        autofocus 
+                        autocomplete="off"
+                        [required]="true"
+                        placeholder="Enter Login Name...">
+                        <ng-container *ngIf="(editForm.get('loginName').invalid && editForm.get('loginName').touched) || editForm.get('loginName').dirty">
+                            <p class="required-lbl" *ngIf="editForm.get('loginName').errors?.required">
+                                Login Name is require!
+                            </p>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label class="htc-form-input-lbl">Email</label>
+                    <div>
+                        <input 
+                        class="form-control"
+                        formControlName="email" 
+                        name="email" 
+                        type="email" 
+                        id="input-email"  
+                        autofocus 
+                        autocomplete="off"
+                        [required]="true" 
+                        placeholder="Enter Email...">
+                        <ng-container *ngIf="(editForm.get('email').invalid && editForm.get('email').touched) || editForm.get('email').dirty">
+                            <p class="required-lbl" *ngIf="editForm.get('email').errors?.required">
+                                Email is require!
+                            </p>
+                            <p class="required-lbl" *ngIf="editForm.get('email').errors?.pattern">
+                                Email must be a valid email address!
+                            </p>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label class="htc-form-input-lbl">Phone Number</label>
+                    <div>
+                        <input 
+                        class="form-control"
+                        formControlName="phoneNumber" 
+                        name="phoneNumber" 
+                        type="text" 
+                        inputmode="numeric"
+                        id="input-phoneNumber" 
+                        autocomplete="off"
+                        [required]="true"
+                        placeholder="Enter Phone Number..." 
+                        (keypress)="onKeyPress($event)">
+                        <ng-container *ngIf="(editForm.get('phoneNumber').invalid && editForm.get('phoneNumber').touched) || editForm.get('phoneNumber').dirty">
+                            <p class="required-lbl" *ngIf="editForm.get('phoneNumber').errors?.required">
+                                Phone Number is require!
+                            </p>
+                        </ng-container>
+                    </div>
+                </div>
+                <!-- <div class="col-sm">
+                    <label class="htc-form-input-lbl">Last Login Date</label>
+                    <div>
+                        <input 
+                        class="form-control"
+                        formControlName="lastLoginDate" 
+                        name="lastLoginDate" 
+                        type="text" 
+                        id="input-lastLoginDate" 
+                        autocomplete="off"
+                        [required]="false"
+                        readonly>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label class="htc-form-input-lbl">Registered Date</label>
+                    <div>
+                        <input 
+                        class="form-control"
+                        formControlName="registeredDate" 
+                        name="registeredDate" 
+                        type="text" 
+                        id="input-registeredDate" 
+                        autocomplete="off"
+                        [required]="false"
+                        readonly>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label class="htc-form-input-lbl">Password</label>
+                    <div>
+                        <input 
+                        class="form-control"
+                        formControlName="password" 
+                        name="password" 
+                        id="input-password" 
+                        autocomplete="off"
+                        [required]="false"
+                        readonly>
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="div-section" style="text-align: end;">
+                <button type="button" class="btn btn-outline-secondary user-detail-block-btn" (click)="onCancelUpdte()">
+                    <img src="../../../../../assets/images/general/toast-close.svg" style="cursor: pointer;">
+                    <label style="margin-left: 5px;cursor: pointer;">Cancel</label>
+                </button>
+
+                <ng-container *ngIf="editForm.valid && profilePreview;else FormInvalidBtn">
+                    <button type="button" class="btn btn-outline-success user-detail-block-btn" (click)="onUpdte(editForm.value)">
+                        <img src="../../../../../assets/images/general/edit-green-no-bg.svg" style="cursor: pointer;">
+                        <label style="margin-left: 5px;cursor: pointer;">Update</label>
+                    </button>
+                </ng-container>
+
+                <ng-template #FormInvalidBtn>
+                    <button type="button" class="btn btn-success user-detail-block-btn" disabled>
+                        <i class="bi bi-pencil-square"></i>
+                        <label style="margin-left: 5px;cursor: pointer;">Update</label>
+                    </button>
+                </ng-template>
+            </div>
+
+        </form>
+    </div>
+</div>

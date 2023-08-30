@@ -1,0 +1,21 @@
+<ng-container *ngIf="infoCounts && infoCounts.length > 0;">
+    <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <div class="p-2" *ngFor="let data of infoCounts; let idx=index;">
+            <dashboard-home-info-card 
+            [image]="data.image"
+            [title]="data.title"
+            [subTitle]="data.subTitle"
+            [count]="data.count"
+            [percent]="data.percent"
+            [totalPercent]="data.totalPercent"
+            [isPercentUp]="data.isPercentUp"
+            [styleIdx]="idx">
+            </dashboard-home-info-card>
+        </div>
+        
+    </div>
+</ng-container>
+
+<div style="padding: 0 0.5rem;">
+    <visitors-chart *ngIf="chartData" [data]="chartData"></visitors-chart>
+</div>

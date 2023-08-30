@@ -1,0 +1,6 @@
+<ng-container *ngIf="photo; else DefaultProfile">
+    <img class="user-detail-img" [src]="photo" [ngStyle]="{'width': widthView, 'height': heightView}">
+</ng-container>
+<ng-template #DefaultProfile>
+    <img class="user-detail-img" src="../../../../assets/images/shared/header/img_avatar.png"  [ngStyle]="{'width': widthView, 'height': heightView}">
+</ng-template>

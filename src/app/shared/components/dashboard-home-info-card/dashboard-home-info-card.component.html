@@ -1,0 +1,26 @@
+<div class="d-h-i-card-container" [id]="'dashboard-info-card'+styleIdx">
+    <div class="d-flex align-items-center flex-wrap">
+        <div class="p-2">
+            <img [src]="image" 
+            [ngClass]="styles[+styleIdx]">
+        </div>
+
+        <div class="p-2 flex-grow-1" style="padding-left: 0 !important;">
+            <label class="info-title">{{title}}</label>
+            <div *ngIf="!target">
+                <label class="info-sub-title">{{subTitle}}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-pregress-container">
+        <label class="info-value-label">{{count}}</label>&nbsp; 
+        <label *ngIf="!target" class="info-percent-label"
+        [ngClass]="isPercentUp ? 'up-percent' : 'down-percent'"> {{percent}}%</label> &nbsp;
+        <img *ngIf="!target" [src]="percentUpDownImgPath" alt="info-up-down-image">
+
+        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar" [ngStyle]="{'width': totalPercent + '%', 'background': progressBarBgColors[+styleIdx]}"></div>
+        </div>
+    </div>
+</div>

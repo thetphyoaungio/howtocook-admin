@@ -1,0 +1,93 @@
+<div class="login-form-container">
+
+    <div class="d-flex align-items-center htc-flex-container justify-content-end">
+        <!-- [ngStyle]="{'float': deviceWidth<=1374?'none':'right', 'justify-content':deviceWidth<=1374?'center':''}" -->
+        <div class="p-2">
+            <form class="login-form-layout" (ngSubmit)="onLogin(loginForm.value)" [formGroup]="loginForm">
+                <div class="login-title-container">
+                    <h2>Sign In To Your Account</h2>
+                    <br>
+                    <h5>Login as a Admin</h5>
+                </div>
+
+                <br>
+
+                <div class="mb-3">
+                    <label for="usernameInput" class="form-label">User Name*</label>
+                    <input 
+                    class="form-control login-form-control"
+                    type="text"
+                    name="username"
+                    formControlName="username"
+                    id="usernameInput"
+                    autofocus
+                    autocomplete="off"
+                    [required]="true"
+                    placeholder="Enter User Name"
+                    minlength="3">
+        
+                    <ng-container *ngIf="loginForm.get('username').invalid && (loginForm.get('username').touched || loginForm.get('username').dirty)">
+                        <p class="required-input-label" *ngIf="loginForm.get('username').errors?.required">
+                            User Name is require!
+                        </p>
+                        <p class="required-input-label" *ngIf="loginForm.get('username').errors?.minlength">
+                            User Name must have at least three(3) characters!
+                        </p>
+                    </ng-container>
+                </div>
+
+                <br>
+
+                <div class="mb-3">
+                    <label for="passwordInput" class="form-label">Password*</label>
+                    <input 
+                    class="form-control login-form-control"
+                    type={{inputType}} 
+                    name="password"
+                    formControlName="password"
+                    id="passwordInput" 
+                    autocomplete="off"
+                    [required]="true"
+                    placeholder="Enter Your Password"
+                    minlength="6">
+        
+                    <ng-container *ngIf="loginForm.get('password').invalid && (loginForm.get('password').touched || loginForm.get('password').dirty)">
+                        <p class="required-input-label" *ngIf="loginForm.get('password').errors?.required">
+                            Password is require!
+                        </p>
+                        <p class="required-input-label" *ngIf="loginForm.get('password').errors?.minlength">
+                            Password must have at least six(6) characters!
+                        </p>
+                    </ng-container>
+                </div>
+
+                <div class="form-check mb-3">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" name="show-password" 
+                      (change)="onCheckShowPassword($event)"> Show Password
+                    </label>
+                </div>
+        
+                <div class="form-check mb-3">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" name="remember-me"> Remember Me
+                    </label>
+                </div>
+
+                <br>
+
+                <div>
+                    <ng-container *ngIf="loginForm.valid; else DisableLogin">
+                        <button class="btn htc-btn-primary login-form-btn"
+                        style="padding: 12.8px 12px !important;width: 100% !important;">Log in</button>
+                    </ng-container>
+                    <ng-template #DisableLogin>
+                        <button class="btn htc-btn-primary login-form-btn" 
+                        style="padding: 12.8px 12px !important;width: 100% !important;" 
+                        disabled>Log in</button>
+                    </ng-template>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

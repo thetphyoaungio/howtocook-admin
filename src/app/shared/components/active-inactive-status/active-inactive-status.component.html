@@ -1,0 +1,13 @@
+<ng-container *ngIf="status==='Active';else InactiveImgDetail">
+    <img 
+    src="../../../../assets/images/dashboard/user/all-users/list/active-green.svg" 
+    alt="active-user">
+</ng-container>
+<ng-template #InactiveImgDetail>
+    <img 
+    src="../../../../assets/images/dashboard/user/all-users/list/inactive-grey.svg" 
+    alt="inactive-user">
+</ng-template>
+<label style="color: grey;margin-left: 5px;">
+{{status}}
+</label>

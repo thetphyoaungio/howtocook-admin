@@ -1,0 +1,43 @@
+<div class="menu-items-container">
+    
+    <div *ngFor="let menu of menus;" 
+    [id]="'menu-' + menu.id"
+    class="d-flex align-items-center menu-div flex-wrap"
+    (click)="onClickMenuItem(menu)"
+    [ngStyle]="{'border-left' : isMenuCollapse && (selectedMenu?.id === menu.id) ? '4px solid #C43704' : 'none', 'margin-bottom' : menu.menuLabel === 'Logout' ? '30px' : ''}">
+        
+        <div class="p-2"
+        [ngClass]="isMenuCollapse && (selectedMenu?.id === menu.id) ? 'menu-icon-p-2-collapse' : 'menu-icon-p-2-expand'">
+            <img [src]="menu.icon" [alt]="menu.menuLabel">
+        </div>
+
+        <div class="p-2"
+        [ngStyle]="{'display' : isMenuCollapse ? 'none' : 'block'}">
+            <label>{{menu.menuLabel}}</label>
+        </div>
+
+        <ng-container *ngIf="menu.childs.length>0">
+            <div class="p-2 flex-grow-1 menu-dropdown-icon"
+            [ngStyle]="{'display' : isMenuCollapse ? 'none' : 'block'}">
+                <img 
+                [id]="'menu-dropdown-icon-'+ menu.id"
+                src="../../../../assets/images/shared/menu-sidebar/black/chevron-down.svg" 
+                alt="chevron-down">
+            </div>
+
+            <div class="p-2 submenu-collapse" [id]="'expend-group-menus-' + menu.id" style="margin-left: 0 !important;">
+                <div *ngFor="let submenu of menu.childs;" 
+                [id]="'submenu-' + submenu.id"
+                class="d-flex align-items-center submenu-div"
+                (click)="onClickSubMenuItem(submenu, $event)">
+                    <div class="p-2" style="width: 33px !important;"></div>
+                    <div class="p-2">
+                        <label>{{submenu.menuLabel}}</label>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        
+    </div>
+
+</div>

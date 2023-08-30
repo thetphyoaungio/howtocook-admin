@@ -1,0 +1,50 @@
+<div class="d-flex align-items-center flex-wrap header-container">
+    <div class="p-2 flex-grow-1">
+        <img 
+        class="menu-sidebar-onoff-img"
+        src="../../../../assets/images/shared/header/menu-on-off.svg" 
+        alt="menu-on-off"
+        (click)="onMenuSidebarColExp()">
+    </div>
+
+    <!-- <div class="p-2">
+        <div class="input-group">
+            <span class="input-group-text" id="search-bi">
+                <i class="bi bi-search"></i>
+            </span>
+            <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Search..." 
+            aria-label="Search..." 
+            aria-describedby="search-bi"
+            (keyup)="onSearch($event)">
+        </div>
+    </div> -->
+    <div class="p-2">
+        <i class="bi bi-bell htc-noti"></i>
+    </div>
+    <div class="p-2 profile-info-group">
+        <ng-container *ngIf="loggedInUser">
+            <div class="d-flex align-items-center" (click)="gotoProfileUpdate()">
+                <div class="p-2 username-role">
+                    <label>{{loggedInUser.userName}}</label>
+                    <div>
+                        <label>{{loggedInUser.loginName}}</label>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <ng-container *ngIf="loggedInUser.profile;else DefaultProfile">
+                        <img class="profile-img" [src]="loggedInUser.profile">
+                    </ng-container>
+                    <ng-template #DefaultProfile>
+                        <img class="profile-img" src="../../../../assets/images/shared/header/img_avatar.png">
+                    </ng-template>
+                </div>
+                <div class="p-2">
+                    <i class="bi bi-chevron-down"></i>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

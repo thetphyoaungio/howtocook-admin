@@ -1,0 +1,24 @@
+.my-pagination ::ng-deep .ngx-pagination .current {
+    background: #C43704;
+    border-radius: 3px;
+}
+.my-pagination-bg ::ng-deep .ngx-pagination {
+    padding: 4px 0px;
+    border-radius: 3px;
+    background: #FFF;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.13);
+}
+
+//bootstrap css customizes!
+.form-switch {
+    display: flex !important;
+    justify-content: center !important;
+
+    input {
+        min-width: 40px !important;
+    }
+}
+.form-check-input:checked {
+    background-color: #C43704;
+    border-color: #C43704;
+}

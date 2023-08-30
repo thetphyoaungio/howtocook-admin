@@ -1,0 +1,60 @@
+<ng-container *ngIf="profileData;else NoProfileData">
+    <label style="font-size: 20px; font-weight: 600;margin-bottom: 5px;">Profile</label>
+    <br>
+    <div class="profile-container-card" style="padding: 4%;">
+        <div style="text-align: center;">
+            <label style="font-size: 20px;font-weight: 600;">Account Information</label>
+
+            <div>
+                <label style="color:#7E7E7E;font-size: 16px;">Edit your profile quickly</label>
+            </div>
+
+            <div style="padding: 1% 0;">
+                <profile-title-photo [photo]="profileData.profile"></profile-title-photo>
+            </div>
+        </div>
+        
+        <div style="padding: 2% 0 !important;">
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-sm">
+                    <label style="font-size: 18px;font-weight: 600;">User Name</label>
+                    <div class="user-detail-info-label">
+                        <label style="font-size: 16px;font-weight: 400;">{{profileData.userName || '-'}}</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label style="font-size: 18px;font-weight: 600;">Login Name</label>
+                    <div class="user-detail-info-label">
+                        <label style="font-size: 16px;font-weight: 400;">{{profileData.loginName || '-'}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <label style="font-size: 18px;font-weight: 600;">Email Address</label>
+                    <div class="user-detail-info-label">
+                        <label style="font-size: 16px;font-weight: 400;">{{profileData.email || '-'}}</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label style="font-size: 18px;font-weight: 600;">Phone Number</label>
+                    <div class="user-detail-info-label">
+                        <label style="font-size: 16px;font-weight: 400;">{{profileData.phoneNumber || '-'}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="d-flex justify-content-end align-items-center">
+            <div class="p-2" style="padding-right: 0 !important;">
+                <button type="button" class="btn btn-warning" 
+                style="padding: 7px 11px !important;color: white !important;"
+                (click)="updateNow()">Update Now</button>
+            </div>
+        </div>
+
+    </div>
+</ng-container>
+<ng-template #NoProfileData>
+    <there-is-no [description]="'There is No Profile data...'"></there-is-no>
+</ng-template>

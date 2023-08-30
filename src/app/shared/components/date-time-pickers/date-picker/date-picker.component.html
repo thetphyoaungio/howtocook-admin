@@ -1,0 +1,27 @@
+<div class="d-flex align-items-center">
+    <div class="p-2" style="padding-left: 0 !important;padding-right: 0 !important;">
+        <input 
+        type="text" 
+        class="date-picker"
+        id="datepickerEl"
+        name="datepicker"
+        matInput
+        ngxDaterangepickerMd
+        startKey="start"
+        endKey="end"
+        [(ngModel)]="selected"
+        [locale]="{applyLabel: 'ok', format: 'MMM DD, YYYY'}"
+        [autoApply]='true'
+        [singleDatePicker]="true" 
+        [placeholder]="'Select Date...'" 
+        (change)="datePickerChange($event)"
+        (keypress)="onKeyPress($event)"/>
+        <!-- [showDropdowns]="true" -->
+    </div>
+    <div class="p-2" style="padding-left: 0 !important;">
+        <img src="../../../../../assets/images/general/cleaner-datetime.svg" 
+        id="datepicker-calenderEl"
+        class="ngx-daterangepicker-action date-calendar-img"
+        (click)="openDatepicker()">
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<router-outlet></router-outlet>
+
+<div id="mySpinner" class="swnw-spinner">
+    <div class="spinner-border"></div>
+</div>
+
+<div id="logoutDialog" class="htc-modal fade-in-dialog">
+    <div class="htc-modal-content" [ngStyle]="{'max-width':deviceInnerWidth>=446?'530px': '300px'}">
+        
+        <div class="htc-modal-header">
+            <img src="../assets/images/shared/menu-sidebar/log-out-dialog-title-icon.svg" class="logout-dialog-img-header" alt="logout">
+        </div>
+
+        <div class="htc-modal-body">
+            <label class="dialog-modal-title">
+                {{dialogModalData?.title}}
+            </label>
+            
+            <p style="margin-top: 1rem !important;">{{dialogModalData?.description}}</p>
+        </div>
+
+        <div class="htc-modal-footer">
+
+            <div class="d-flex justify-content-center align-items-center flex-wrap" style="padding: 0 10%;">
+                <div class="p-2 flex-fill">
+                    <button class="btn btn-outline-secondary" 
+                    style="padding: 8px 12px !important;width: 100% !important;" (click)="onLogoutConfirm(false)">Cancel</button>
+                </div>
+
+                <div class="p-2 flex-fill">
+                    <button class="btn btn-danger" 
+                    style="padding: 8px 12px !important;width: 100% !important;" (click)="onLogoutConfirm(true)">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="messageDialog" class="htc-modal fade-in-dialog">
+    <div class="htc-modal-content" [ngStyle]="{'max-width':deviceInnerWidth>=446?'530px': '300px'}">
+        
+        <div class="htc-modal-header">
+            <img [src]="dialogModalData?.icon" class="logout-dialog-img-header">
+        </div>
+
+        <div class="htc-modal-body">
+            <label class="dialog-modal-title">
+                {{dialogModalData?.title}}
+            </label>
+            
+            <p style="margin-top: 1rem !important;">{{dialogModalData?.description}}</p>
+        </div>
+
+        <div class="htc-modal-footer">
+            <div style="text-align:center; padding: 0 20px;">
+                <button class="btn btn-primary" style="min-width: 100px;" (click)="okMessageDialog()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="confirmDialog" class="htc-modal fade-in-dialog">
+    <div class="htc-modal-content" [ngStyle]="{'max-width':deviceInnerWidth>=446?'530px': '300px'}">
+        
+        <div class="htc-modal-body">
+            <div class="d-flex">
+                <div class="p-2 align-self-start">
+                    <img [src]="dialogModalData?.icon" class="logout-dialog-img-header">
+                </div>
+
+                <div class="p-2" style="text-align: start;">
+                    <label class="dialog-modal-title">
+                        {{dialogModalData?.title}}
+                    </label>
+                    
+                    <p style="margin-top: 1rem !important;">{{dialogModalData?.description}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="htc-modal-footer">
+            <div class="d-flex justify-content-end align-items-center flex-wrap" style="padding: 0 20px;">
+                <div class="p-2">
+                    <button class="btn btn-outline-secondary" (click)="onConfirm(false)">Cancel</button>
+                </div>
+
+                <div class="p-2">
+                    <button class="btn btn-danger" (click)="onConfirm(true)">{{dialogModalData?.okButtonLabel}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

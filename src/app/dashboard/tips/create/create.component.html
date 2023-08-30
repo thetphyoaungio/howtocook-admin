@@ -1,0 +1,171 @@
+<div class="user-detail-container" style="padding-bottom: 0 !important;">
+    <div class="user-detail-nav-links">
+        <label class="user-detail-nav-link" (click)="goToList()">Tips</label>
+         > Create
+    </div>
+
+    <div class="d-flex flex-wrap">
+        <div class="p-2 flex-grow-1">
+            
+            <div class="div-section user-profile-header">
+                <div style="padding: 10px 0;">
+                    <label for="file-input" class="please-add-photo-lbl">ပုံထည့်ရန်</label>
+                </div>
+        
+                <label for="file-input">
+                    <ng-container *ngIf="profilePreView; else DefProfilePreView">
+                        <img 
+                        [src]="profilePreView" 
+                        for="file-input"
+                        class="tip-title-photo">
+                    </ng-container>
+                    <ng-template #DefProfilePreView>
+                        <img src="../../../../assets/images/dashboard/tips/create-tip-titleImg.svg" 
+                        for="file-input" 
+                        class="tip-title-photo">
+                    </ng-template>
+                    
+                    <input id="file-input" type="file" accept="image/*" (change)="addTipPhoto($event)" style="display: none;" />
+                </label>
+            </div>
+        
+            <div class="div-section" style="padding-bottom: 0;">
+                <form [formGroup]="createForm" aria-labelledby="title">
+                    <div class="row" style="padding: 10px 0;">
+                        <div class="col-sm">
+                            <label class="htc-form-input-lbl">ခေါင်းစဥ်</label>
+                            <div>
+                                <input 
+                                class="form-control"
+                                formControlName="title" 
+                                name="title" 
+                                type="text" 
+                                id="input-title"  
+                                autofocus 
+                                autocomplete="off"
+                                [required]="true"
+                                placeholder="ခေါင်းစဥ် ထည့်သွင်းပါ...">
+                                <ng-container *ngIf="(createForm.get('title').invalid && createForm.get('title').touched) || createForm.get('title').dirty">
+                                    <p class="required-lbl" *ngIf="createForm.get('title').errors?.required">
+                                        Title is require!
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding: 10px 0;">
+                        <div class="col-sm">
+                            <label class="htc-form-input-lbl">အကြောင်းအရာ</label>
+                            <div>
+                                <textarea 
+                                class="form-control" 
+                                formControlName="description" 
+                                name="description" 
+                                id="input-description" 
+                                autocomplete="off" 
+                                [required]="true" 
+                                placeholder="အကြောင်းအရာ ထည့်သွင်းပါ..."
+                                rows="3"></textarea>
+                                <ng-container *ngIf="(createForm.get('description').invalid && createForm.get('description').touched) || createForm.get('description').dirty">
+                                    <p class="required-lbl" *ngIf="createForm.get('description').errors?.required">
+                                        Description is require!
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div formArrayName="steps">
+                        <div *ngFor="let step of steps.controls; let i=index">
+                            <div [formGroupName]="i">
+                                <label class="htc-form-input-lbl">အဆင့် {{i + 1}}</label>
+
+                                <div class="d-flex justify-content-start align-items-center flex-wrap">
+                                    <div class="p-2 flex-grow-1" style="padding-left: 0 !important;">
+                                        <input 
+                                        class="form-control"
+                                        formControlName="name" 
+                                        name="name" 
+                                        type="text" 
+                                        autocomplete="off" 
+                                        [required]="true" 
+                                        placeholder="အဆင့်ဆင့်လုပ်ဆောင်ပုံ ထည့်သွင်းပါ...">
+                                    </div>
+                                    <div class="p-2" style="padding-left: 0 !important;padding-right: 0 !important;">
+                                        <ng-container *ngIf="(i === steps.controls.length-1)&&(i!==0)&&(i!==1); else DisabledRemoveStep">
+                                            <button type="button" class="btn btn-danger" (click)="removeStep(i)">
+                                                <i class="bi bi-x"></i>
+                                            </button>
+                                        </ng-container>
+                                        <ng-template #DisabledRemoveStep>
+                                            <button type="button" class="btn btn-danger" disabled>
+                                                <i class="bi bi-x"></i>
+                                            </button>
+                                        </ng-template>
+                                    </div>
+                                    
+                                </div>
+                                <div>
+                                    <ng-container *ngIf="(steps.controls[i].get('name')?.invalid && steps.controls[i].get('name')?.touched) || steps.controls[i].get('name')?.dirty">
+                                        <p class="required-lbl" *ngIf="steps.controls[i].status==='INVALID'">
+                                            အဆင့်ဆင့်လုပ်ဆောင်ပုံ ထည့်သွင်းပါ!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+                <div class="div-section" style="text-align: center;">
+                    <ng-container *ngIf="steps.length < 9; else DisableAddSteps">
+                        <button type="button" class="btn add-more-steps-btn" (click)="addSteps()">
+                            <i class="bi bi-plus"></i>
+                            <label style="margin-left: 5px;cursor: pointer;">ထပ်ထည့်ရန်</label>
+                        </button>
+                    </ng-container>
+                    <ng-template #DisableAddSteps>
+                        <button type="button" class="btn add-more-steps-btn" disabled>
+                            <i class="bi bi-plus"></i>
+                            <label style="margin-left: 5px;cursor: pointer;">ထပ်ထည့်ရန်</label>
+                        </button>
+                    </ng-template>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="p-2">
+            <div class="form-check form-switch">
+                <label class="form-check-label" for="ispublicEl">Public</label>
+                <input 
+                id="ispublicEl"
+                class="form-check-input" 
+                type="checkbox"  
+                name="isPublic" 
+                (change)="changeIsPublic($event)">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="div-section action-btn-container">
+    <button type="button" class="btn btn-outline-secondary user-detail-block-btn" (click)="onCancelCreate()">
+        <img src="../../../../assets/images/general/toast-close.svg" style="cursor: pointer;">
+        <label style="margin-left: 5px;cursor: pointer;">Cancel</label>
+    </button>
+
+    <ng-container *ngIf="createForm.valid && profilePreView;else FormInvalidBtn">
+        <button type="button" class="btn btn-outline-success user-detail-block-btn" (click)="onCreate(createForm.value)">
+            <img src="../../../../../assets/images/general/check-green-no-bg.svg" style="cursor: pointer;">
+            <label style="margin-left: 5px;cursor: pointer;">Create</label>
+        </button>
+    </ng-container>
+
+    <ng-template #FormInvalidBtn>
+        <button type="button" class="btn btn-success user-detail-block-btn" disabled>
+            <i class="bi bi-check2"></i>
+            <label style="margin-left: 5px;cursor: pointer;">Create</label>
+        </button>
+    </ng-template>
+</div>

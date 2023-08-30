@@ -1,0 +1,32 @@
+.menu-items-container {
+    padding: 30px 0;
+}
+.menu-dropdown-icon {
+    text-align: right;
+    margin-right: 8px !important;
+}
+.menu-div, .submenu-div {
+    img, label {
+        cursor: pointer;
+    }
+    cursor: pointer;
+    margin: 18px 0 0 0 !important;
+}
+.menu-icon-p-2-expand {
+    margin-left: 8px !important;
+}
+.menu-icon-p-2-collapse {
+    margin-left: 4px !important;
+}
+.submenu-collapse, .submenu-expend {
+    width: 100%;
+    padding: 0 !important;
+    transition: height 0.5s;
+}
+.submenu-collapse {
+    height: 0;
+    overflow: hidden;
+}
+.submenu-expend {
+    height: auto;
+}

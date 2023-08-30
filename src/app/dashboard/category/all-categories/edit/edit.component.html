@@ -1,0 +1,68 @@
+<div class="user-detail-container">
+    <div class="user-detail-nav-links">
+        <label class="user-detail-nav-link" (click)="goToList()">All Categories</label>
+         > Edit
+    </div>
+    
+    <div class="div-section">
+        <form [formGroup]="editForm" aria-labelledby="title">
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label class="htc-form-input-lbl">Category Name</label>
+                    <div>
+                        <input 
+                        class="form-control"
+                        formControlName="name" 
+                        name="name" 
+                        type="text" 
+                        id="input-name"  
+                        autofocus 
+                        autocomplete="off"
+                        [required]="true"
+                        placeholder="Enter Category Name...">
+                        <ng-container *ngIf="(editForm.get('name').invalid && editForm.get('name').touched) || editForm.get('name').dirty">
+                            <p class="required-lbl" *ngIf="editForm.get('name').errors?.required">
+                                Category Name is require!
+                            </p>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="ispublicEl">Public</label>
+                        <input 
+                        id="ispublicEl"
+                        class="form-check-input" 
+                        type="checkbox" 
+                        formControlName="isPublic" 
+                        name="isPublic" 
+                        (change)="changeIsPublic($event)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-section" style="text-align: end;">
+                <button type="button" class="btn btn-outline-secondary user-detail-block-btn" (click)="onCancelUpdte()">
+                    <img src="../../../../../assets/images/general/toast-close.svg" style="cursor: pointer;">
+                    <label style="margin-left: 5px;cursor: pointer;">Cancel</label>
+                </button>
+                
+                <ng-container *ngIf="editForm.valid;else FormInvalidBtn">
+                    <button type="button" class="btn btn-outline-success user-detail-block-btn" (click)="onUpdate(editForm.value)">
+                        <img src="../../../../../assets/images/general/check-green-no-bg.svg" style="cursor: pointer;">
+                        <label style="margin-left: 5px;cursor: pointer;">Update</label>
+                    </button>
+                </ng-container>
+
+                <ng-template #FormInvalidBtn>
+                    <button type="button" class="btn btn-success user-detail-block-btn" disabled>
+                        <i class="bi bi-pencil-square"></i>
+                        <label style="margin-left: 5px;cursor: pointer;">Update</label>
+                    </button>
+                </ng-template>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+.profile-container-card {
+    border-radius: 10px;
+    background: var(--white, #FFF);
+    
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.12);
+}
+
+.user-detail-info-label {
+    border-radius: 10px;
+    border: 1px solid #E2E8F0;
+    background: #FFF;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+    height: 42px;
+    padding: 9px 16px;
+    align-items: center;
+    gap: 58px;
+    color: rgba(126, 126, 126, 1) !important;
+}

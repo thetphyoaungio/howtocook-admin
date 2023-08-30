@@ -1,0 +1,45 @@
+<div class="d-flex align-items-center justify-content-between">
+    <div class="p-2" style="padding: 0 !important;">
+        <label class="main-title">Date Report</label>
+    </div>
+  
+    <div class="p-2" style="padding: 0 !important;">
+        <htc-export-button 
+        [htcServic]="reportService" 
+        [query]="expQuery$" 
+        [fileName]="'date-report'"></htc-export-button>
+    </div>
+</div>
+  
+<div class="d-flex align-items-center filters-search-container">
+    <div class="p-2 flex-grow-1" style="padding: 0 !important;">
+      <htc-date-picker [customDate]="selectedDate" (onDateChange)="onDateChangeEvt($event)"></htc-date-picker>
+    </div>
+  
+    <div class="p-2" style="padding: 0 !important;">
+        <htc-global-search></htc-global-search>
+    </div>
+</div>
+
+<div>
+    <div class="date-report-home-card" *ngFor="let report of reports;">
+        <div class="date-report-home-card-header">
+            <label>{{report.title}}</label>
+        </div>
+        
+        <div class="d-flex align-items-center justify-content-between date-report-home-card-body"
+        *ngFor="let item of report.data">
+            <div class="p-2">
+                <label>{{item.name}}</label>
+            </div>
+            <div class="p-2">
+                <label style="font-weight: 600;">{{item.count}}</label>
+                <ng-container *ngIf="item.count>0">
+                    <i 
+                    class="bi bi-chevron-right date-report-go-detail" (click)="goDetail(item, report.title)"></i>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+</div>

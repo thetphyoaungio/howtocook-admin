@@ -1,0 +1,23 @@
+<div class="d-flex align-items-center">
+    <div class="p-2" style="padding-left: 0 !important;padding-right: 0 !important;">
+        <input 
+        type="text" 
+        class="date-picker"
+        autocomplete="off" 
+        name="month-year" 
+        bsDatepicker 
+        #pickerElRef
+        [(ngModel)]="selected"
+        [bsConfig]="config" 
+        [placeholder]="placeholderTxt"
+        (onShown)="onOpenCalendar($event)" 
+        (bsValueChange)="onChange($event)"
+        (keypress)="onKeyPress($event)">
+    </div>
+    <div class="p-2" style="padding-left: 0 !important;">
+        <img src="../../../../../assets/images/general/cleaner-datetime.svg" 
+        id="datepicker-calenderEl"
+        class="date-calendar-img"
+        (click)="openMonthYearpicker()">
+    </div>
+</div>

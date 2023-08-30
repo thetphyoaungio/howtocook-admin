@@ -1,0 +1,120 @@
+<ng-container *ngIf="userDetail">
+    <div class="user-detail-container">
+        <div class="user-detail-nav-links">
+            <label class="user-detail-nav-link" (click)="goToList()">Chef Users</label>
+             > Details
+        </div>
+    
+        <div class="div-section user-profile-header">
+            <profile-title-photo [photo]="userDetail.photo"></profile-title-photo>
+    
+            <div style="padding: 10px 0;">
+                <label class="user-profile-name">{{userDetail.name}}</label>
+            </div>
+            <div>
+                <active-inactive-status [status]="userDetail.status"></active-inactive-status>
+            </div>
+        </div>
+    
+        <div class="div-section">
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label>Email or FB Name</label>
+                    <div class="user-detail-info-label">
+                        <label>{{userDetail.email}}</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label>Created Date</label>
+                    <div class="user-detail-info-label">
+                        <label>{{userDetail.createdAt}}</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label>User Level</label>
+                    <div class="user-detail-info-label">
+                        <label>{{userDetail.userLevel}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label>Number of Posts</label>
+                    <div class="user-detail-info-label">
+                        <label>{{userDetail.postCount}}</label>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label>Followers</label>
+                    <div class="user-detail-info-label">
+                        <label>{{userDetail.followerCount}}</label>
+                    </div>
+                </div>
+                <div class="col-sm"></div>
+            </div>
+        </div>
+        
+        <div class="div-section" style="text-align: end;">
+            <button type="button" class="btn btn-outline-danger user-detail-block-btn" (click)="userBlock()">
+                <img src="../../../../assets/images/dashboard/user/all-users/user-detail/block.svg" alt="block-user-img" style="cursor: pointer;">
+                <label style="margin-left: 5px;cursor: pointer;">Block</label>
+            </button>
+        </div>
+    </div>
+
+    <ng-container *ngIf="userPosts && userPosts.length>0">
+        <div style="margin-top: 22px;">
+            <div>
+                <label class="post-list-title">Post List</label>
+            </div>
+            
+            <div >
+                <div  class="table-container">
+                    <div class="d-flex align-items-center justify-content-between table-header">
+                        <div class="p-2" style="width: 10%;text-align: center;">No</div>
+                        <div class="p-2" style="width: 33%;padding-left: 52px !important;">Title</div>
+                        <div class="p-2" style="width: 25%;padding-left: 52px !important;">Date</div>
+                        <div class="p-2" style="width: 25%;">Food Category</div>
+                        <div class="p-2" style="width: 8%;text-align: center;">View</div>
+                    </div>
+            
+                    <div class="table-body">
+                        <div class="d-flex align-items-center" 
+                        *ngFor="let post of userPosts 
+                        | paginate: { itemsPerPage: perPage, currentPage: p };let idx=index;">
+                            <div class="p-2" style="width: 10%;text-align: center;">
+                                <label style="color: grey;">{{p > 1 ? (((perPage*p) - perPage) + idx + 1): (idx + 1)}}</label>
+                            </div>
+                            <div class="p-2" style="width: 33%;">
+                                <label>{{post.title}}</label>
+                            </div>
+                            <div class="p-2" style="width: 25%;">
+                                <label>{{post.createdAt}}</label>
+                            </div>
+                            <div class="p-2" style="width: 25%;">
+                                <label>{{post.category?.name}}</label>
+                            </div>
+                            <div class="p-2" style="width: 8%;text-align: center;">
+                                <label class="details-link" (click)="gotoPostDetail(post)">View</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="d-flex justify-content-end align-items-center">
+                    <div class="p-2" style="padding-right: 0 !important; ">
+                        <pagination-controls 
+                        class="my-pagination-bg my-pagination" 
+                        [autoHide]="true" 
+                        [responsive]="true" 
+                        (pageChange)="p = $event">
+                        </pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="userPosts && userPosts.length===0">
+        <there-is-no [description]="'There is No Posts...'" [minHeight]="'60px'"></there-is-no>
+    </ng-container>
+</ng-container>
