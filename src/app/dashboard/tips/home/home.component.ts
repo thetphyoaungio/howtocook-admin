@@ -146,14 +146,10 @@ export class TipsHomeComponent implements OnInit, OnDestroy {
         });
     }
 
-    changeIsPublic(evt:any, category:any) {
+    changeIsPublic(evt:any, tip:any) {
         this.spinnerService.loading.next(true);
 
-        const pl = new FormData();
-        pl.append('isPublic', evt.target.checked);
-        pl.append('id', category.id);
-
-        this.tipService.updatePublicStatus(pl).subscribe({
+        this.tipService.updatePublicStatus({isPublic: evt.target.checked, id: tip.id}).subscribe({
             next:((res:any) => {
                 this.spinnerService.loading.next(false);
                 if(res.success) {

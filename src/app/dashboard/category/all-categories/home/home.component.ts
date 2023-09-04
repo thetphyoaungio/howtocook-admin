@@ -103,11 +103,7 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
     changeIsPublic(evt:any, category:any) {
         this.spinnerService.loading.next(true);
 
-        const pl = new FormData();
-        pl.append('isPublic', evt.target.checked);
-        pl.append('id', category.id);
-
-        this.categoryService.updatePublicStatus(pl).subscribe({
+        this.categoryService.updatePublicStatus({ isPublic:evt.target.checked, id: category.id }).subscribe({
             next:((res:any) => {
                 this.spinnerService.loading.next(false);
                 if(res.success) {

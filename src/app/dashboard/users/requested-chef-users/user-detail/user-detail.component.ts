@@ -102,17 +102,14 @@ export class RequestChefUsersUserDetailComponent implements OnInit, OnDestroy {
                 if(res) {
                     this.spinnerService.loading.next(true);
 
-                    const pl = new FormData();
-                    pl.append('id', this.userId);
-
-                    this.userService.acceptChefUserRequest(pl).subscribe({
+                    this.userService.acceptChefUserRequest({ id:this.userId }).subscribe({
                         next:((res:any) => {
                             this.spinnerService.loading.next(false);
 
                             if(res.success) {
                                 this.toid1 = setTimeout(() => {
                                     this.toastService.showToast({
-                                        icon:'../../../../../assets/images/general/check-bg-green.svg.svg',
+                                        icon:'../../../../../assets/images/general/check-bg-green.svg',
                                         title:'Accepted Request User Level',
                                         description:'you have been accepted the user to chef level.'
                                     });//2500

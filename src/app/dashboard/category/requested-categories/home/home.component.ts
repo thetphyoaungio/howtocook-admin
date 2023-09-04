@@ -145,10 +145,7 @@ export class RequestedCategoriesHomeComponent implements OnInit, OnDestroy {
                 if(res) {
                     this.spinnerService.loading.next(true);
 
-                    let pl = new FormData();
-                    pl.append('id', category.id);
-
-                    this.categoryService.acceptRequestedCategory(pl).subscribe({
+                    this.categoryService.acceptRequestedCategory({ id: category.id }).subscribe({
                         next:((res:any) => {
                             this.spinnerService.loading.next(false);
                             
