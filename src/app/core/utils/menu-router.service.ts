@@ -39,6 +39,14 @@ export class MenuRouterService {
                 this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.ADMIN_MANAGEMENT}`]);
                 break;
             }
+            case MenuLabels.CUSTOM_FEEDBACK : {
+                this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.CUSTOM_FEEDBACK}`]);
+                break;
+            }
+            case MenuLabels.SETTING : {
+                this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.SETTING}`]);
+                break;
+            }
 
             //**Sub/Child Menus
             //*Reports
@@ -98,6 +106,20 @@ export class MenuRouterService {
             //*Admin Manage
             case MenuLabels.ADMIN_LIST : {
                 this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.ADMIN_MANAGEMENT}`]);
+                break;
+            }
+
+            //*Setting
+            case MenuLabels.SETTING_FAQS : {
+                this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.SETTING}/${RouteNames.SETTING_FAQS_LIST}`]);
+                break;
+            }
+            case MenuLabels.SETTING_CUSTOM_ADS : {
+                this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.SETTING}/${RouteNames.SETTING_CUSTOM_ADS_LIST}`]);
+                break;
+            }
+            case MenuLabels.SETTING_VERSION_UPDATE : {
+                this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.SETTING}/${RouteNames.SETTING_VERSION_UPDATE_LIST}`]);
                 break;
             }
         }

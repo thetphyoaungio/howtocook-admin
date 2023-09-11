@@ -7,6 +7,9 @@ const reportsIcon = 'reports.svg';
 const categoriesIcon = 'categories.svg';
 const userIcon = 'user.svg';
 const adminIcon = 'admin-manage.svg';
+const feedbackIcon = 'customer-feedbacks.svg';
+const settingIcon = 'setting.svg';
+
 const logoutIcon = 'log-out.svg';
 
 const MENUS = [
@@ -16,14 +19,14 @@ const MENUS = [
         menuLabel:MenuLabels.DASHBOARD,
         childs:[],
         id:'1',
-    },//0
+    },
     {
         icon:`${MenuIconPath}/black/${tipsIcon}`,
         iconfile:tipsIcon,
         menuLabel:MenuLabels.TIPS,
         childs:[],
         id:'2',
-    },//1
+    },
     {
         icon:`${MenuIconPath}/black/${reportsIcon}`,
         iconfile:reportsIcon,
@@ -61,7 +64,7 @@ const MENUS = [
                 id:'3-5',
             },
         ],
-    },//2
+    },
     {
         icon:`${MenuIconPath}/black/${categoriesIcon}`,
         iconfile:categoriesIcon,
@@ -81,7 +84,7 @@ const MENUS = [
                 id:'4-2',
             },
         ],
-    },//3
+    },
     {
         icon:`${MenuIconPath}/black/${userIcon}`,
         iconfile:userIcon,
@@ -119,7 +122,7 @@ const MENUS = [
                 id:'5-5',
             },
         ],
-    },//4
+    },
     {
         icon:`${MenuIconPath}/black/${adminIcon}`,
         iconfile:adminIcon,
@@ -133,7 +136,40 @@ const MENUS = [
                 id:'6-1',
             }
         ]
-    },//5
+    },
+    {
+        icon:`${MenuIconPath}/black/${feedbackIcon}`,
+        iconfile:feedbackIcon,
+        menuLabel:MenuLabels.CUSTOM_FEEDBACK,
+        id:'7',
+        childs:[]
+    },
+    {
+        icon:`${MenuIconPath}/black/${settingIcon}`,
+        iconfile:settingIcon,
+        menuLabel:MenuLabels.SETTING,
+        id:'8',
+        childs:[
+            {
+                icon:'',
+                menuLabel:MenuLabels.SETTING_FAQS,
+                childs:[],
+                id:'8-1',
+            },
+            {
+                icon:'',
+                menuLabel:MenuLabels.SETTING_CUSTOM_ADS,
+                childs:[],
+                id:'8-2',
+            },
+            {
+                icon:'',
+                menuLabel:MenuLabels.SETTING_VERSION_UPDATE,
+                childs:[],
+                id:'8-3',
+            }
+        ]
+    },
     {
         icon:`${MenuIconPath}/black/${logoutIcon}`,
         iconfile:logoutIcon,

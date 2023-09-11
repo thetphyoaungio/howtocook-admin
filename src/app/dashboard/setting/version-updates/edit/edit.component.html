@@ -1,0 +1,120 @@
+<div class="user-detail-container">
+    <div class="user-detail-nav-links">
+        <label class="user-detail-nav-link" (click)="goToList()">Version Updates</label>
+         > Edit
+    </div>
+    
+    <div class="div-section">
+        <form [formGroup]="editForm" aria-labelledby="title">
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label class="htc-form-input-lbl">iOS Version</label>
+                    <div>
+                        <input 
+                        class="form-control"
+                        formControlName="ios_version" 
+                        name="ios_version" 
+                        type="text" 
+                        id="input-ios_version"  
+                        autofocus 
+                        autocomplete="off"
+                        [required]="true"
+                        placeholder="Enter iOS Version...">
+                        <ng-container *ngIf="(editForm.get('ios_version').invalid && editForm.get('ios_version').touched) || editForm.get('ios_version').dirty">
+                            <p class="required-lbl" *ngIf="editForm.get('ios_version').errors?.required">
+                                iOS Version is require!
+                            </p>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label class="htc-form-input-lbl">Android Version</label>
+                    <div>
+                        <input 
+                        class="form-control"
+                        formControlName="android_version" 
+                        name="android_version" 
+                        type="text" 
+                        id="input-android_version"  
+                        autofocus 
+                        autocomplete="off"
+                        [required]="true"
+                        placeholder="Enter Android Version...">
+                        <ng-container *ngIf="(editForm.get('android_version').invalid && editForm.get('android_version').touched) || editForm.get('android_version').dirty">
+                            <p class="required-lbl" *ngIf="editForm.get('android_version').errors?.required">
+                                Android Version is require!
+                            </p>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label class="htc-form-input-lbl">App Store Link</label>
+                    <div>
+                        <input 
+                        class="form-control"
+                        formControlName="appstore_link" 
+                        name="appstore_link" 
+                        type="text" 
+                        id="input-appstore_link"  
+                        autofocus 
+                        autocomplete="off" 
+                        placeholder="Enter App Store Link...">
+                        
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label class="htc-form-input-lbl">Play Store Link</label>
+                    <div>
+                        <input 
+                        class="form-control"
+                        formControlName="playstore_link" 
+                        name="playstore_link" 
+                        type="text" 
+                        id="input-playstore_link"  
+                        autofocus 
+                        autocomplete="off"
+                        placeholder="Enter playstore_link...">
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <div class="form-check form-switch" style="justify-content: start !important;padding-left: 0 !important;">
+                        <label class="form-check-label" for="forceUpdateEl">Force Update</label>
+                        <input 
+                        id="forceUpdateEl"
+                        class="form-check-input" 
+                        type="checkbox" 
+                        formControlName="forceUpdate" 
+                        name="forceUpdate" 
+                        (change)="changeForceUpdate($event)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-section" style="text-align: end;">
+                <button type="button" class="btn btn-outline-secondary user-detail-block-btn" (click)="onCancel()">
+                    <img src="../../../../../assets/images/general/toast-close.svg" style="cursor: pointer;">
+                    <label style="margin-left: 5px;cursor: pointer;">Cancel</label>
+                </button>
+
+                <ng-container *ngIf="editForm.valid;else FormInvalidBtn">
+                    <button type="button" class="btn btn-outline-success user-detail-block-btn" (click)="onUpdate(editForm.value)">
+                        <img src="../../../../../assets/images/general/edit-green-no-bg.svg" style="cursor: pointer;">
+                        <label style="margin-left: 5px;cursor: pointer;">Update</label>
+                    </button>
+                </ng-container>
+
+                <ng-template #FormInvalidBtn>
+                    <button type="button" class="btn btn-success user-detail-block-btn" disabled>
+                        <i class="bi bi-pencil-square"></i>
+                        <label style="margin-left: 5px;cursor: pointer;">Update</label>
+                    </button>
+                </ng-template>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -13,14 +13,14 @@ import {
 
 import RouteNames from "src/app/core/helpers/route-names.helper";
 
-import { CategoryService } from "src/app/core/services";
+import { SettingService } from "src/app/core/services";
 
 @Component({
     templateUrl:'./home.component.html',
     styleUrls:['./home.component.scss']
 })
-export class CategoriesHomeComponent implements OnInit, OnDestroy {
-    categories:any;
+export class SettingVersionUpdateHomeComponent implements OnInit, OnDestroy {
+    versionUpdates:any;
 
     p = 1;
     perPage = 5;
@@ -38,7 +38,7 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
         private spinnerService:SpinnerService,
         private dialogService:DialogModalService,
         private toastService:ToastService,
-        public categoryService:CategoryService,
+        public settingService:SettingService,
         private datePipe:DatePipe,
         private dateTimeService:TPADateTimeService,
         private globalSearchService:GlobalSearchSubjectService,
@@ -69,19 +69,15 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
 
         this.expQuery$ = `?search=${this.searchTxt||''}`;
 
-        this.categoryService.getAllWithPagin(qry).subscribe({
+        this.settingService.getAllWithPagin_VU(qry).subscribe({
             next:((res:any) => {
                 this.totalRecords = res.pagination?.totalCount;
 
                 if(res.data){
-                    this.categories = res.data.map((x:any) => ({
-                        id: x.id,
-                        name: x.name,
-                        createdAt: x.createdAt && this.datePipe.transform(this.dateTimeService.createDateForSafariMac_5(x.createdAt), 'dd MMM yyyy'),
+                    this.versionUpdates = res.data.map((x:any) => ({
+                        ...x,
                         status: x.status ? 'Active' : 'Inactive',
-                        isPublic: x.isPublic,
-                        requestStatus: x.requestStatus,
-                        photo: x.photo
+                        createdAt: x.createdAt && this.datePipe.transform(this.dateTimeService.createDateForSafariMac_5(x.createdAt), 'dd MMM yyyy'),
                     }));
                 }
 
@@ -97,54 +93,33 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
         });
     }
 
-    createCategory(){
-        this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.CATEGORIES}/${RouteNames.ALL_CATEGORIES}/${RouteNames.ALL_CATE_CREATE}`]);
+    createItem(){
+        this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.SETTING}/${RouteNames.SETTING_VERSION_UPDATE_LIST}/${RouteNames.SETTING_VERSION_UPDATE_CREATE}`]);
     }
 
-    changeIsPublic(evt:any, category:any) {
-        this.spinnerService.loading.next(true);
-
-        this.categoryService.updatePublicStatus({ isPublic:evt.target.checked, id: category.id }).subscribe({
-            next:((res:any) => {
-                this.spinnerService.loading.next(false);
-                if(res.success) {
-                    this.toastService.showToast({
-                        icon:'../../../../../assets/images/general/check-bg-green.svg',
-                        title:'Updated Category',
-                        description:'you have been successfully updated category as Public.'
-                    }, 4500);
-                }
-            }),
-            error:(err => {
-                this.spinnerService.loading.next(false);
-                this.dialogService.showError(err);
-            })
-        });
+    editItem(id:string){
+        this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.SETTING}/${RouteNames.SETTING_VERSION_UPDATE_LIST}/${RouteNames.SETTING_VERSION_UPDATE_EDIT}`, id]);
     }
 
-    editCategory(category:any){
-        this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.CATEGORIES}/${RouteNames.ALL_CATEGORIES}/${RouteNames.ALL_CATE_EDIT}`, category.id]);
-    }
-
-    deleteCategory(category:any){
+    deleteItem(id:string){
         this.dialogService.showConfirm({
-            title:'Delete Category',
-            description:'Do you really want to delete this category? This action cannot be undone.',
+            title:'Delete Version',
+            description:'Do you really want to delete this version? This action cannot be undone.',
             okButtonLabel:'Yes, Delete',
         }).subscribe({
             next:(res => {
                 if(res) {
                     this.spinnerService.loading.next(true);
 
-                    this.categoryService.deleteCategory(`?id=${category.id}`).subscribe({
+                    this.settingService.delete_VU(`?id=${id}`).subscribe({
                         next:((res:any) => {
                             this.spinnerService.loading.next(false);
                             
                             this.toid1 = setTimeout(() => {
                                 this.toastService.showToast({
                                     icon:'../../../../../assets/images/general/check-bg-red.svg',
-                                    title:'Deleted Category',
-                                    description:'you have been deleted the category.'
+                                    title:'Deleted Version',
+                                    description:'you have been deleted the version.'
                                 });//2500
                             }, 0);
 
@@ -152,7 +127,7 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
 
                             this.toid2 = setTimeout(() => {
                                 this.getAll();
-                            }, 3000);
+                            }, 1500);
                         }),
                         error:(err => {
                             this.spinnerService.loading.next(false);

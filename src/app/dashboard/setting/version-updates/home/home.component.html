@@ -1,0 +1,90 @@
+<div class="d-flex align-items-center justify-content-between">
+    <div class="p-2" style="padding: 0 !important;">
+        <label class="main-title">Version Updates</label>
+    </div>
+
+    <div class="p-2" style="padding: 0 !important;">
+        <htc-export-button 
+        [htcServic]="settingService" 
+        [query]="expQuery$" 
+        [fileName]="'setting-version-updates'"></htc-export-button>
+    </div>
+</div>
+
+<div class="d-flex align-items-center filters-search-container">
+    <div class="p-2 flex-grow-1" style="padding-left: 0 !important;">
+        <button class="btn btn-outline-warning create-btn" (click)="createItem()">
+            <label>Create</label>
+            <i class="bi bi-plus"></i>
+        </button>
+    </div>
+    <div class="p-2" style="padding-right: 0 !important;">
+        <htc-global-search></htc-global-search>
+    </div>
+</div>
+
+<ng-container *ngIf="versionUpdates && versionUpdates.length>0">
+    <div >
+        <div  class="table-container">
+            <div class="d-flex align-items-center justify-content-between table-header">
+                <div class="p-2" style="width: 10%;text-align: center;">No</div>
+
+                <div class="p-2" style="width: 25%;text-align: center;">iOS</div>
+
+                <div class="p-2" style="width: 25%;text-align: center;">Android</div>
+
+                <div class="p-2" style="width: 15%;">Created Date</div>
+
+                <div class="p-2" style="width: 10%;text-align: center;">Status</div>
+
+                <div class="p-2" style="width: 15%;text-align: center;">Action</div>
+            </div>
+    
+            <div class="table-body">
+                <div class="d-flex align-items-center" *ngFor="let version of versionUpdates | paginate: { itemsPerPage: perPage, currentPage: p, totalItems: totalRecords }; let idx=index;">
+                    <div class="p-2" style="width: 10%;text-align: center;">
+                        <label style="color: grey;">{{p > 1 ? (((perPage*p) - perPage) + idx + 1): (idx + 1)}}</label>
+                    </div>
+
+                    <div class="p-2" style="width: 25%;text-align: center;">
+                        <label>{{version.ios_version}}</label>
+                    </div>
+
+                    <div class="p-2" style="width: 25%;text-align: center;">
+                        <label>{{version.android_version}}</label>
+                    </div>
+
+                    <div class="p-2" style="width: 15%;">
+                        <label>{{version.createdAt}}</label>
+                    </div>
+
+                    <div class="p-2" style="width: 10%;text-align: center;">
+                        <active-inactive-status [status]="version.status"></active-inactive-status>
+                    </div>
+                    
+                    <div class="p-2" style="width: 15%;text-align: center;">
+                        <img src="../../../../../assets/images/dashboard/admin-manage/list/edit.svg" class="table-action-img"
+                        (click)="editItem(version.id)">
+
+                        <img src="../../../../../assets/images/dashboard/admin-manage/list/delete.svg" class="table-action-img"
+                        (click)="deleteItem(version.id)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="d-flex justify-content-end align-items-center">
+            <div class="p-2" style="padding-right: 0 !important; ">
+                <pagination-controls 
+                class="my-pagination-bg my-pagination" 
+                [autoHide]="true" 
+                [responsive]="true" 
+                (pageChange)="p = $event;getAll()">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="versionUpdates && versionUpdates.length===0">
+    <there-is-no [description]="'There is No Version Updates...'"></there-is-no>
+</ng-container>

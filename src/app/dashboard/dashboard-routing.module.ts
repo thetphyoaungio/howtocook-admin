@@ -50,6 +50,16 @@ const routes: Routes = [
                 .then(m => m.ReportsModule)
             },
             {
+                path:RouteNames.CUSTOM_FEEDBACK,
+                loadChildren:() => import('./feedback/feedback.module')
+                .then(m => m.FeedBackModule)
+            },
+            {
+                path:RouteNames.SETTING,
+                loadChildren:() => import('./setting/setting.module')
+                .then(m => m.SettingsModule)
+            },
+            {
                 path:'',
                 redirectTo:RouteNames.HOME,
                 pathMatch:'full',

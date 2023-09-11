@@ -66,6 +66,29 @@ const RouteNames = {
     ADMIN_EDIT:'admin-edit',
     ADMIN_DETAIL:'admin-detail',
     //------------------------------
+    CUSTOM_FEEDBACK:'custom-feedback',
+    CUSTOM_FEEDBACK_LIST:'custom-feedback-list',
+    //------------------------------
+    SETTING:'setting',
+
+    SETTING_FAQS_LIST:'faq-list',
+    SETTING_FAQS_LIST_HOME:'home',
+    SETTING_FAQS_CREATE:'faq-create',
+    SETTING_FAQS_EDIT:'faq-edit',
+    SETTING_FAQS_DETAIL:'faq-detail',
+
+    SETTING_CUSTOM_ADS_LIST:'custom-ads-list',
+    SETTING_CUSTOM_ADS_LIST_HOME:'home',
+    SETTING_CUSTOM_ADS_CREATE:'custom-ads-create',
+    SETTING_CUSTOM_ADS_EDIT:'custom-ads-edit',
+    SETTING_CUSTOM_ADS_DETAIL:'custom-ads-detail',
+
+    SETTING_VERSION_UPDATE_LIST:'version-update-list',
+    SETTING_VERSION_UPDATE_LIST_HOME:'home',
+    SETTING_VERSION_UPDATE_CREATE:'version-update-create',
+    SETTING_VERSION_UPDATE_EDIT:'version-update-edit',
+    SETTING_VERSION_UPDATE_DETAIL:'version-update-detail',
+    //------------------------------
     PROFILE_UPDATE:'profile-update',
 }
 

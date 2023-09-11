@@ -1,0 +1,74 @@
+<div class="user-detail-container">
+    <div class="user-detail-nav-links">
+        <label class="user-detail-nav-link" (click)="goToList()">FAQs</label>
+         > Create
+    </div>
+    
+    <div class="div-section">
+        <form [formGroup]="createForm" aria-labelledby="title">
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label class="htc-form-input-lbl">Title</label>
+                    <div>
+                        <input 
+                        class="form-control"
+                        formControlName="title" 
+                        name="title" 
+                        type="text" 
+                        id="input-title"  
+                        autofocus 
+                        autocomplete="off"
+                        [required]="true"
+                        placeholder="Enter FAQ Title...">
+                        <ng-container *ngIf="(createForm.get('title').invalid && createForm.get('title').touched) || createForm.get('title').dirty">
+                            <p class="required-lbl" *ngIf="createForm.get('title').errors?.required">
+                                Title is require!
+                            </p>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label class="htc-form-input-lbl">Descriptione</label>
+                    <div>
+                        <textarea 
+                        class="form-control"
+                        formControlName="description" 
+                        name="description" 
+                        type="text" 
+                        id="input-description"  
+                        autofocus 
+                        autocomplete="off"
+                        [required]="true"
+                        placeholder="Enter Description..."
+                        rows="3"></textarea>
+                        <ng-container *ngIf="(createForm.get('description').invalid && createForm.get('description').touched) || createForm.get('description').dirty">
+                            <p class="required-lbl" *ngIf="createForm.get('description').errors?.required">
+                                Description is require!
+                            </p>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-section" style="text-align: end;">
+                <ng-container *ngIf="createForm.valid;else FormInvalidBtn">
+                    <button type="button" class="btn btn-outline-success user-detail-block-btn" (click)="onCreate(createForm.value)">
+                        <img src="../../../../../assets/images/general/check-green-no-bg.svg" style="cursor: pointer;">
+                        <label style="margin-left: 5px;cursor: pointer;">Create</label>
+                    </button>
+                </ng-container>
+
+                <ng-template #FormInvalidBtn>
+                    <button type="button" class="btn btn-success user-detail-block-btn" disabled>
+                        <i class="bi bi-check2"></i>
+                        <label style="margin-left: 5px;cursor: pointer;">Create</label>
+                    </button>
+                </ng-template>
+            </div>
+
+        </form>
+    </div>
+</div>

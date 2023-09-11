@@ -354,6 +354,38 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
                 
                 break;
             }
+            case RouteNames.CUSTOM_FEEDBACK:{
+                this.selectedMenu = MENUS[6];
+
+                this.updateSelectedNoChildsMenuUI(MENUS[6]);
+                
+                break;
+            }
+            case RouteNames.SETTING:{
+                this.selectedMenu = MENUS[7];
+
+                switch(this.htcRoute[3]){
+                    case RouteNames.SETTING_FAQS_LIST:{
+                        this.selectedSubMenu = MENUS[7].childs[0];
+
+                        break;
+                    }
+                    case RouteNames.SETTING_CUSTOM_ADS_LIST:{
+                        this.selectedSubMenu = MENUS[7].childs[1];
+
+                        break;
+                    }
+                    case RouteNames.SETTING_VERSION_UPDATE_LIST:{
+                        this.selectedSubMenu = MENUS[7].childs[2];
+
+                        break;
+                    }
+                }
+
+                this.updateSelectedWithChildsMenuUI(MENUS[7]);
+                
+                break;
+            }
             case RouteNames.PROFILE_UPDATE:{
                 //other menu items are set to initial stage
                 this.menus.forEach((x:any) => {
@@ -374,7 +406,9 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
 
     RouteToChildMenuUIUpdateHandler(menu:any) {
         switch(this.htcRoute[2]){
+            
             case RouteNames.USERS:{
+                
                 switch(this.htcRoute[3]){
                     case RouteNames.ALL_USERS:{
                         this.changeUIMenuBgFontColor(`submenu-${menu.childs[0]?.id}`, '#C43704', 'white');
@@ -456,6 +490,27 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
                     }
                     case RouteNames.CHEF_USERS_REPORT:{
                         this.changeUIMenuBgFontColor(`submenu-${menu.childs[3]?.id}`, '#C43704', 'white');
+
+                        break;
+                    }
+                }
+
+                break;
+            }
+            case RouteNames.SETTING:{
+                switch(this.htcRoute[3]){
+                    case RouteNames.SETTING_FAQS_LIST:{
+                        this.changeUIMenuBgFontColor(`submenu-${menu.childs[0]?.id}`, '#C43704', 'white');
+
+                        break;
+                    }
+                    case RouteNames.SETTING_CUSTOM_ADS_LIST:{
+                        this.changeUIMenuBgFontColor(`submenu-${menu.childs[1]?.id}`, '#C43704', 'white');
+
+                        break;
+                    }
+                    case RouteNames.SETTING_VERSION_UPDATE_LIST:{
+                        this.changeUIMenuBgFontColor(`submenu-${menu.childs[2]?.id}`, '#C43704', 'white');
 
                         break;
                     }

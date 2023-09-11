@@ -7,6 +7,8 @@ import { CategoryService } from "./category.service";
 import { AdminManageService } from "./admin-manage.service";
 import { TipService } from "./tip.service";
 import { ReportsService } from "./reports.service";
+import { FeedBackService } from "./feedback.service";
+import { SettingService } from "./setting.service";
 
 export {
     AuthService,
@@ -18,4 +20,6 @@ export {
     AdminManageService,
     TipService,
     ReportsService,
+    FeedBackService,
+    SettingService,
 }

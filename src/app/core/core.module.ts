@@ -12,6 +12,8 @@ import {
     AdminManageService,
     TipService,
     ReportsService,
+    FeedBackService,
+    SettingService,
 } from "./services";
 
 import { 
@@ -38,6 +40,8 @@ export const CORE_PROVIDERS = [
     AdminManageService,
     TipService,
     ReportsService,
+    FeedBackService,
+    SettingService,
 
     SpinnerService,
     HttpInterceptorService,

@@ -13,14 +13,14 @@ import {
 
 import RouteNames from "src/app/core/helpers/route-names.helper";
 
-import { CategoryService } from "src/app/core/services";
+import { SettingService } from "src/app/core/services";
 
 @Component({
     templateUrl:'./home.component.html',
     styleUrls:['./home.component.scss']
 })
-export class CategoriesHomeComponent implements OnInit, OnDestroy {
-    categories:any;
+export class SettingCustomAdsHomeComponent implements OnInit, OnDestroy {
+    customAds:any;
 
     p = 1;
     perPage = 5;
@@ -38,7 +38,7 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
         private spinnerService:SpinnerService,
         private dialogService:DialogModalService,
         private toastService:ToastService,
-        public categoryService:CategoryService,
+        public settingService:SettingService,
         private datePipe:DatePipe,
         private dateTimeService:TPADateTimeService,
         private globalSearchService:GlobalSearchSubjectService,
@@ -69,19 +69,17 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
 
         this.expQuery$ = `?search=${this.searchTxt||''}`;
 
-        this.categoryService.getAllWithPagin(qry).subscribe({
+        this.settingService.getAllWithPagin(qry).subscribe({
             next:((res:any) => {
                 this.totalRecords = res.pagination?.totalCount;
 
                 if(res.data){
-                    this.categories = res.data.map((x:any) => ({
+                    this.customAds = res.data.map((x:any) => ({
                         id: x.id,
-                        name: x.name,
+                        url: x.url,
+                        photo: x.photo,
+                        isActive: x.isActive,
                         createdAt: x.createdAt && this.datePipe.transform(this.dateTimeService.createDateForSafariMac_5(x.createdAt), 'dd MMM yyyy'),
-                        status: x.status ? 'Active' : 'Inactive',
-                        isPublic: x.isPublic,
-                        requestStatus: x.requestStatus,
-                        photo: x.photo
                     }));
                 }
 
@@ -97,54 +95,33 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
         });
     }
 
-    createCategory(){
-        this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.CATEGORIES}/${RouteNames.ALL_CATEGORIES}/${RouteNames.ALL_CATE_CREATE}`]);
+    createItem(){
+        this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.SETTING}/${RouteNames.SETTING_CUSTOM_ADS_LIST}/${RouteNames.SETTING_CUSTOM_ADS_CREATE}`]);
     }
 
-    changeIsPublic(evt:any, category:any) {
-        this.spinnerService.loading.next(true);
-
-        this.categoryService.updatePublicStatus({ isPublic:evt.target.checked, id: category.id }).subscribe({
-            next:((res:any) => {
-                this.spinnerService.loading.next(false);
-                if(res.success) {
-                    this.toastService.showToast({
-                        icon:'../../../../../assets/images/general/check-bg-green.svg',
-                        title:'Updated Category',
-                        description:'you have been successfully updated category as Public.'
-                    }, 4500);
-                }
-            }),
-            error:(err => {
-                this.spinnerService.loading.next(false);
-                this.dialogService.showError(err);
-            })
-        });
+    editItem(id:string){
+        this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.SETTING}/${RouteNames.SETTING_CUSTOM_ADS_LIST}/${RouteNames.SETTING_CUSTOM_ADS_EDIT}`, id]);
     }
 
-    editCategory(category:any){
-        this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.CATEGORIES}/${RouteNames.ALL_CATEGORIES}/${RouteNames.ALL_CATE_EDIT}`, category.id]);
-    }
-
-    deleteCategory(category:any){
+    deleteItem(id:string){
         this.dialogService.showConfirm({
-            title:'Delete Category',
-            description:'Do you really want to delete this category? This action cannot be undone.',
+            title:'Delete Custom Ads',
+            description:'Do you really want to delete this Ads? This action cannot be undone.',
             okButtonLabel:'Yes, Delete',
         }).subscribe({
             next:(res => {
                 if(res) {
                     this.spinnerService.loading.next(true);
 
-                    this.categoryService.deleteCategory(`?id=${category.id}`).subscribe({
+                    this.settingService.delete(`?id=${id}`).subscribe({
                         next:((res:any) => {
                             this.spinnerService.loading.next(false);
                             
                             this.toid1 = setTimeout(() => {
                                 this.toastService.showToast({
                                     icon:'../../../../../assets/images/general/check-bg-red.svg',
-                                    title:'Deleted Category',
-                                    description:'you have been deleted the category.'
+                                    title:'Deleted Custom Ads',
+                                    description:'you have been deleted the Ads.'
                                 });//2500
                             }, 0);
 
@@ -152,7 +129,7 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
 
                             this.toid2 = setTimeout(() => {
                                 this.getAll();
-                            }, 3000);
+                            }, 1500);
                         }),
                         error:(err => {
                             this.spinnerService.loading.next(false);
@@ -164,5 +141,31 @@ export class CategoriesHomeComponent implements OnInit, OnDestroy {
             })
         });
         
+    }
+
+    updateIsActive(evt:any, customAds:any) {
+        this.spinnerService.loading.next(true);
+
+        const pl = new FormData();
+        pl.append('id', customAds.id);
+        pl.append('url', customAds.url);
+        pl.append('isActive', evt.target.checked);
+        pl.append('photo', customAds.photo);
+
+        this.settingService.update(pl).subscribe({
+            next:((res:any) => {
+                this.spinnerService.loading.next(false);
+
+                this.toastService.showToast({
+                    icon:'../../../../../assets/images/general/check-bg-green.svg',
+                    title:'Updated Active status of Custom Ads ',
+                    description:'you have been successfully updated.'
+                });
+            }),
+            error:(err => {
+                this.spinnerService.loading.next(false);
+                this.dialogService.showError(err);
+            })
+        });
     }
 }

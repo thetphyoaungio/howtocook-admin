@@ -1,0 +1,90 @@
+<div class="user-detail-container">
+    <div class="user-detail-nav-links">
+        <label class="user-detail-nav-link" (click)="goToList()">Custom Ads</label>
+         > Create
+    </div>
+    
+    <div class="div-section user-profile-header">
+        <label for="file-input">
+            <ng-container *ngIf="imgPreview; else DefProfilePreView">
+                <img 
+                class="user-detail-img user-create-profile-img" 
+                style="border-radius: 5px !important;"
+                [src]="imgPreview" 
+                for="file-input">
+            </ng-container>
+            <ng-template #DefProfilePreView>
+                <img 
+                class="user-detail-img user-create-profile-img" 
+                style="border-radius: 5px !important;"
+                src="../../../../../assets/images/general/landscape-def-img.svg" 
+                for="file-input">
+            </ng-template>
+            
+            <input id="file-input" type="file" accept="image/*" (change)="addAdsPhoto($event)" style="display: none;" />
+        </label>
+        
+        <div style="padding: 10px 0;">
+            <label for="file-input" class="please-add-photo-lbl">Please add Ads Photo *</label>
+        </div>
+    </div>
+    
+    <div class="div-section">
+        <form [formGroup]="createForm" aria-labelledby="title">
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <label class="htc-form-input-lbl">URL</label>
+                    <div>
+                        <input 
+                        class="form-control"
+                        formControlName="url" 
+                        name="url" 
+                        type="text" 
+                        id="input-url"  
+                        autofocus 
+                        autocomplete="off"
+                        [required]="true"
+                        placeholder="Enter URL...">
+                        <ng-container *ngIf="(createForm.get('url').invalid && createForm.get('url').touched) || createForm.get('url').dirty">
+                            <p class="required-lbl" *ngIf="createForm.get('url').errors?.required">
+                                URL is require!
+                            </p>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding: 10px 0;">
+                <div class="col-sm">
+                    <div class="form-check form-switch" style="justify-content: start !important;padding-left: 0 !important;">
+                        <label class="form-check-label" for="isActiveEl">Active</label>
+                        <input 
+                        id="isActiveEl"
+                        class="form-check-input" 
+                        type="checkbox" 
+                        formControlName="isActive" 
+                        name="isActive" 
+                        (change)="changeIsActive($event)">
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="div-section" style="text-align: end;">
+                <ng-container *ngIf="createForm.valid && imgPreview;else FormInvalidBtn">
+                    <button type="button" class="btn btn-outline-success user-detail-block-btn" (click)="onCreate(createForm.value)">
+                        <img src="../../../../../assets/images/general/check-green-no-bg.svg" style="cursor: pointer;">
+                        <label style="margin-left: 5px;cursor: pointer;">Create</label>
+                    </button>
+                </ng-container>
+
+                <ng-template #FormInvalidBtn>
+                    <button type="button" class="btn btn-success user-detail-block-btn" disabled>
+                        <i class="bi bi-check2"></i>
+                        <label style="margin-left: 5px;cursor: pointer;">Create</label>
+                    </button>
+                </ng-template>
+            </div>
+
+        </form>
+    </div>
+</div>

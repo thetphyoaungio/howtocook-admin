@@ -24,6 +24,14 @@ export const MenuLabels = {
     ADMIN_MANAGEMENT:'Admin Management',
     ADMIN_LIST:'Admin List',
     //--------------------------------------
+    CUSTOM_FEEDBACK:'Customers Feedback',
+    //--------------------------------------
+    SETTING:'Setting',
+    SETTING_CUSTOM_ADS: 'Custom Ads',
+    SETTING_VERSION_UPDATE: 'Version Updates',
+    SETTING_FAQS: 'FAQs',
+    //--------------------------------------
+
     LOGOUT:'Logout',
     //--------------------------------------
 }

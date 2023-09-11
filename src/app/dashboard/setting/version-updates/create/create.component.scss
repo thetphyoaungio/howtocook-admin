@@ -1,0 +1,17 @@
+//bootstrap css customizes!
+.form-switch {
+    display: flex !important;
+    justify-content: center !important;
+
+    input {
+        min-width: 40px !important;
+    }
+}
+.form-check-input:checked {
+    background-color: #C43704;
+    border-color: #C43704;
+}
+.form-check-label {
+    margin-right: 46px;
+    font-weight: bold;
+}

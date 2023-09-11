@@ -10,4 +10,8 @@ export const environment = {
   CATEG:'category',
   TIP:'tip',
   NOTI:'notification',
+  FEDBCK:'feedback',
+  ADS:'ads',
+  APVU:'app_version',
+  FQS:'FAQ',
 };

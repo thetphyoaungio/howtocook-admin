@@ -1,0 +1,115 @@
+<div class="d-flex align-items-center justify-content-between">
+    <div class="p-2" style="padding: 0 !important;">
+        <label class="main-title">Customers Feedbacks</label>
+    </div>
+
+    <div class="p-2" style="padding: 0 !important;">
+        <!-- <htc-export-button 
+        [htcServic]="feedbackService" 
+        [query]="expQuery$" 
+        [fileName]="'customers-feedbacks'"></htc-export-button> -->
+    </div>
+</div>
+
+<div class="d-flex align-items-center filters-search-container">
+    <div class="p-2 flex-grow-1" style="padding: 0 !important;"></div>
+    <div class="p-2" style="padding: 0 !important;">
+        <htc-global-search></htc-global-search>
+    </div>
+</div>
+
+<ng-container *ngIf="feedbacks && feedbacks.length>0">
+    <div >
+        <div  class="table-container">
+            <div class="d-flex align-items-center justify-content-between table-header">
+                <div class="p-2" style="width: 10%;text-align: center;">No</div>
+
+                <div class="p-2" style="width: 30%;text-align: center;">Account</div>
+
+                <div class="p-2" style="width: 30%;text-align: center;">Description</div>
+
+                <div class="p-2" style="width: 20%;text-align: center;">Date</div>
+                
+                <div class="p-2" style="width: 10%;text-align: center;">Details</div>
+            </div>
+    
+            <div class="table-body">
+                <div class="d-flex align-items-center" *ngFor="let fb of feedbacks | paginate: { itemsPerPage: perPage, currentPage: p, totalItems: totalRecords }; let idx=index;">
+                    <div class="p-2" style="width: 10%;text-align: center;">
+                        <label style="color: grey;">{{p > 1 ? (((perPage*p) - perPage) + idx + 1): (idx + 1)}}</label>
+                    </div>
+
+                    <div class="p-2" style="width: 30%;">
+                        <table-cell-user-info 
+                        [user]="{id:fb.user?.id, name:fb.user?.name, email:fb.user?.email, photo:fb.user?.photo }"></table-cell-user-info>
+                    </div>
+
+                    <div class="p-2" style="width: 30%;text-align: center;">
+                        <label class="table-cell-truncate-1" style="text-align: center !important;">{{fb.description}}</label>
+                    </div>
+
+                    <div class="p-2" style="width: 20%;text-align: center;">
+                        <label>{{fb.createdAt}}</label>
+                    </div>
+                    
+                    <div class="p-2" style="width: 10%;text-align: center;">
+                        <label class="details-link" (click)="showDetail(fb.id)">View</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="d-flex justify-content-end align-items-center">
+            <div class="p-2" style="padding-right: 0 !important; ">
+                <pagination-controls 
+                class="my-pagination-bg my-pagination" 
+                [autoHide]="true" 
+                [responsive]="true" 
+                (pageChange)="p = $event;getAll()">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="feedbacks && feedbacks.length===0">
+    <there-is-no [description]="'There is No Feedbacks...'"></there-is-no>
+</ng-container>
+
+
+<!-- detail dialog -->
+<div id="detailDialog" class="htc-modal">
+    <ng-container *ngIf="detailFB">
+        <div class="htc-modal-content" [ngStyle]="{'max-width':deviceInnerWidth>=446?'530px': '300px'}" style="border-radius: 10px !important;">
+            
+            <div class="htc-modal-header" style="padding-bottom: 10px !important;">
+                <div class="d-flex justify-content-start align-items-center flex-wrap" style="text-align: start;padding: 0 11px;">
+                    <div class="p-2 flex-grow-1" style="align-items: center;display: flex;">
+                        <table-cell-user-info 
+                        [user]="{id:detailFB.user?.id, name:detailFB.user?.name, email:detailFB.user?.email, photo:detailFB.user?.photo }">
+                        </table-cell-user-info>
+                    </div>
+                    <div class="p-2">
+                        <label>{{detailFB.createdAt}} | {{detailFB.createdTimeOnly}}</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="htc-modal-body" style="padding-top: 0 !important;">
+                <p style="font-size: 14px;text-align: justify !important;">
+                    {{detailFB.description||'- No Description -'}}
+                </p>
+            </div>
+
+            <div class="htc-modal-footer user-block-dialog-footer" style="padding: 10px !important;">
+                <div class="d-flex justify-content-end align-items-center">
+                    <div class="p-2">
+                        <button 
+                        class="btn btn-danger" 
+                        style="padding: 7px 14px !important;min-width: 90px;"
+                        (click)="closeDetailDialog()">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
