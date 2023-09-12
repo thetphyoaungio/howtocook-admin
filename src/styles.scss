@@ -236,14 +236,14 @@ body {
     color: #7E7E7E;
 }
 .table-action-img {
-    margin: 5px;
+    margin: 3px;
     cursor: pointer;
-    padding: 7px;
+    padding: 6px;
 }
 .table-action-img:hover {
-    opacity: 0.8;
+    opacity: 0.6;
     background: lightgrey;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 .accept-tabel-cell-link {
     background: white;
@@ -457,8 +457,8 @@ body {
     color: dodgerblue;
     cursor: pointer;
 }
-.date-report-go-detail:hover {
-    padding: 3px 5px 3px 6px;
+.date-report-go-detail-div:hover {
+    padding: 0 5px 0 6px;
     opacity: 0.7;
     transition: padding 0.5s;
 }

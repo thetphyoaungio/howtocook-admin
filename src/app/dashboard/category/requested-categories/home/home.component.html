@@ -23,10 +23,13 @@
         <div  class="table-container">
             <div class="d-flex align-items-center justify-content-between table-header">
                 <div class="p-2" style="width: 10%;text-align: center;">No</div>
-                <div class="p-2" style="width: 25%;padding-left: 3% !important;">Categories</div>
+
+                <div class="p-2" style="width: 10%;text-align: center;">Image</div>
+
+                <div class="p-2" style="width: 25%;padding-left: 70px !important;">Categories</div>
                 <div class="p-2" style="width: 21%;">Created Date</div>
-                <div class="p-2" style="width: 22%;text-align: center;">Status</div>
-                <div class="p-2" style="width: 22%;text-align: center;">Action</div>
+                <div class="p-2" style="width: 17%;text-align: center;">Status</div>
+                <div class="p-2" style="width: 17%;text-align: center;">Action</div>
             </div>
     
             <div class="table-body">
@@ -34,16 +37,26 @@
                     <div class="p-2" style="width: 10%;text-align: center;">
                         <label style="color: grey;">{{p > 1 ? (((perPage*p) - perPage) + idx + 1): (idx + 1)}}</label>
                     </div>
+
+                    <div class="p-2" style="width: 10%;text-align: center;">
+                        <ng-container *ngIf="category.photo;else DefaultImg">
+                            <img [src]="category.photo" width="60px" height="60px" style="border-radius: 5px;">
+                        </ng-container>
+                        <ng-template #DefaultImg>
+                            <img src="../../../../../assets/images/general/landscape-def-img.svg" width="60px" height="60px" style="border-radius: 5px;">
+                        </ng-template>
+                    </div>
+
                     <div class="p-2" style="width: 25%;">
                         <label class="table-cell-truncate-1">{{category.name}}</label>
                     </div>
                     <div class="p-2" style="width: 21%;">
                         <label>{{category.createdAt}}</label>
                     </div>
-                    <div class="p-2" style="width: 22%;text-align: center;">
+                    <div class="p-2" style="width: 17%;text-align: center;">
                         <label style="color: red;">{{category.requestStatus}}</label>
                     </div>
-                    <div class="p-2" style="width: 22%;text-align: center;">
+                    <div class="p-2" style="width: 17%;text-align: center;">
                         <img src="../../../../../assets/images/dashboard/admin-manage/list/delete.svg" class="table-action-img"
                         (click)="deleteCategory(category)">
 
@@ -66,5 +79,5 @@
     </div>
 </ng-container>
 <ng-container *ngIf="categories && categories.length===0">
-    <there-is-no [description]="'There is No categories...'"></there-is-no>
+    <there-is-no [description]="'There is No Requested Categories...'"></there-is-no>
 </ng-container>
