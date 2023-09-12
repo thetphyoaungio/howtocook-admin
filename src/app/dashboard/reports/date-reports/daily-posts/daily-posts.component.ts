@@ -66,7 +66,7 @@ export class DateReportDailyPostsComponent implements OnInit, OnDestroy {
             this.getReports();
         });
 
-        this.selectedDate = this.invoker && this.invokerDate ? 
+        this.selectedDate = this.invoker && this.invoker!=='-' && this.invokerDate ? 
         this.dateTimeService.createDateForSafariMac_10(this.invokerDate) : new Date();
     }
 

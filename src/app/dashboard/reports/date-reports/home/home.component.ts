@@ -151,11 +151,11 @@ export class DateReportHomeComponent implements OnInit, OnDestroy {
             case 'Daily' : {
                 if(item.name === 'Total Post Count') {
                     this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.REPORTS}/${RouteNames.DATE_REPORT}/${RouteNames.DATE_REPORT_DAILY_POSTS}`,
-                    '','']);
+                    '-','-']);
 
                 } else if(item.name === 'Total New User Count') {
                     this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.REPORTS}/${RouteNames.DATE_REPORT}/${RouteNames.DATE_REPORT_DAILY_NEW_USERS}`,
-                    '','']);
+                    '-','-']);
                 }
 
                 break;
@@ -164,11 +164,11 @@ export class DateReportHomeComponent implements OnInit, OnDestroy {
             case 'Monthly' : {
                 if(item.name === 'Total Post Count') {
                     this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.REPORTS}/${RouteNames.DATE_REPORT}/${RouteNames.DATE_REPORT_MONTHLY_YEARLY_POSTS}`, 
-                    'monthly','','']);
+                    'monthly','-','-']);
 
                 } else if(item.name === 'Total New User Count') {
                     this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.REPORTS}/${RouteNames.DATE_REPORT}/${RouteNames.DATE_REPORT_MONTHLY_YEARLY_NEW_USERS}`, 
-                    'monthly','','']);
+                    'monthly','-','-']);
                 }
 
                 break;
@@ -177,11 +177,11 @@ export class DateReportHomeComponent implements OnInit, OnDestroy {
             case 'Yearly' : {
                 if(item.name === 'Total Post Count') {
                     this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.REPORTS}/${RouteNames.DATE_REPORT}/${RouteNames.DATE_REPORT_MONTHLY_YEARLY_POSTS}`, 
-                    'yearly','','']);
+                    'yearly','-','-']);
 
                 } else if(item.name === 'Total New User Count') {
                     this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.REPORTS}/${RouteNames.DATE_REPORT}/${RouteNames.DATE_REPORT_MONTHLY_YEARLY_NEW_USERS}`, 
-                    'yearly','','']);
+                    'yearly','-','-']);
                 }
                 
                 break;

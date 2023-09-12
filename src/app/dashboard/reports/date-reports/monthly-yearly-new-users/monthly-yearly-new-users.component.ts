@@ -74,7 +74,7 @@ export class DateReportMonthlyYearlyNewUsersComponent implements OnInit, OnDestr
             this.getReports();
         });
 
-        this.selectedDate = this.invoker && this.invokerDate ? 
+        this.selectedDate = this.invoker && this.invoker!=='-' && this.invokerDate ? 
         this.dateTimeService.createDateForSafariMac_11(this.invokerDate) : new Date();
     }
 

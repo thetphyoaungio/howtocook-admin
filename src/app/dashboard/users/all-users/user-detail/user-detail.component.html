@@ -1,11 +1,11 @@
 <ng-container *ngIf="userDetail">
     <div class="user-detail-container">
         <div class="user-detail-nav-links">
-            <ng-container *ngIf="!invoker">
+            <ng-container *ngIf="invoker==='-'">
                 <label class="user-detail-nav-link" (click)="goToList()">All Users </label> > Details
             </ng-container>
     
-            <ng-container *ngIf="invoker">
+            <ng-container *ngIf="invoker!=='-'">
                 <ng-container *ngIf="invoker === 'date-report-daily-new-users'">
                     <label class="user-detail-nav-link" (click)="goToList()">Daily New Users (Date Report)</label> > Detail User
                 </ng-container>

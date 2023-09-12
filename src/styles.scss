@@ -238,9 +238,24 @@ body {
 .table-action-img {
     margin: 5px;
     cursor: pointer;
+    padding: 7px;
 }
 .table-action-img:hover {
-    opacity: 0.5;
+    opacity: 0.8;
+    background: lightgrey;
+    border-radius: 20px;
+}
+.accept-tabel-cell-link {
+    background: white;
+    padding: 4px 15px;
+    border: 1px solid green;
+    border-radius: 5px;
+
+    color: green;
+    margin-left: 5px !important;
+}
+.accept-tabel-cell-link:hover {
+    background-color: whitesmoke;
 }
 .required-lbl {
     color: red;

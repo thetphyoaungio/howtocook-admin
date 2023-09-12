@@ -171,9 +171,7 @@ export class AllUsersUserDetailComponent implements OnInit, OnDestroy {
 
         } else if(this.invoker === 'users-report') {
             this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.REPORTS}/${RouteNames.USERS_REPORT}`]);
-        }
-        
-        else {
+        } else {
             this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.USERS}/${RouteNames.ALL_USERS}`]);
         }
     }
