@@ -1,34 +1,14 @@
 <div class="user-detail-container">
     <div class="user-detail-nav-links">
-        <label class="user-detail-nav-link" (click)="goToList()">{{!returnTarget ? 'Admin List' : 'Profile Detail'}}</label>
+        <label class="user-detail-nav-link" (click)="goToList()">{{returnTarget==='-' ? 'Admin List' : 'Profile Detail'}}</label>
          > Edit
     </div>
+
+    <htc-image-uploader [image]="profilePreview" (onUploaded)="addAdminPhoto($event)"></htc-image-uploader>
     
     <div class="div-section user-profile-header">
-        <label for="file-input">
-            <div style="position: relative;">
-                <ng-container *ngIf="profilePreview; else DefProfilePreView">
-                    <img 
-                    class="user-detail-img user-create-profile-img"
-                    [src]="profilePreview" 
-                    for="file-input">
-                </ng-container>
-                <ng-template #DefProfilePreView>
-                    <img 
-                    class="user-detail-img user-create-profile-img"
-                    src="../../../../../assets/images/shared/header/img_avatar.png" 
-                    for="file-input">
-                </ng-template>
-
-                <i class="bi bi-camera-fill user-edit-profile-icon"></i>
-            </div>
-            
-            <input id="file-input" type="file" accept="image/*" (change)="addAdminPhoto($event)" style="display: none;" />
-        </label>
+        <label class="user-profile-name">{{adminDetail?.userName}}</label>
         
-        <div style="padding: 10px 0;">
-            <label class="user-profile-name">{{adminDetail?.userName}}</label>
-        </div>
         <div>
             <ng-container *ngIf="adminDetail?.status===true;else InactiveImgDetail">
                     <img 

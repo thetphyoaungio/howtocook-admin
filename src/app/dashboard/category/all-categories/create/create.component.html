@@ -3,6 +3,11 @@
         <label class="user-detail-nav-link" (click)="goToList()">All Categories</label>
          > Create
     </div>
+
+    <htc-image-uploader 
+    [image]="photoPreview" 
+    [shape]="'square'" 
+    (onUploaded)="addPhoto($event)"></htc-image-uploader>
     
     <div class="div-section">
         <form [formGroup]="createForm" aria-labelledby="title">

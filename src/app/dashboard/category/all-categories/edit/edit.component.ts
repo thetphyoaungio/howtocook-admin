@@ -11,6 +11,7 @@ import {
 import RouteNames from "src/app/core/helpers/route-names.helper";
 
 import { CategoryService } from "src/app/core/services";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
     templateUrl:'./edit.component.html',
@@ -21,6 +22,11 @@ export class CategoriesEditComponent implements OnInit, OnDestroy {
     editData:any;
     editForm:FormGroup|any;
 
+    photoPreview:any;
+    uploadedPhoto:any;
+
+    toid1:any;
+
     constructor(
         private router:Router,
         private spinnerService:SpinnerService,
@@ -29,6 +35,7 @@ export class CategoriesEditComponent implements OnInit, OnDestroy {
         private categoryService:CategoryService,
         private fb:FormBuilder,
         private route:ActivatedRoute,
+        private domSanitizer:DomSanitizer, 
     ) {
         this.route.params.subscribe({
             next:((params:any) => this.cateId = params.id)
@@ -42,7 +49,7 @@ export class CategoriesEditComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        
+        if(this.toid1) clearTimeout(this.toid1);
     }
 
     buildForm() {
@@ -62,10 +69,15 @@ export class CategoriesEditComponent implements OnInit, OnDestroy {
                 if(res.success) {
                     this.editData = {...res.data};
 
-                    this.editForm.patchValue({
-                        name:res.data.name,
-                        isPublic:res.data.isPublic
-                    });
+                    this.toid1 = setTimeout(() => {
+                        this.photoPreview = res.data?.photo;
+
+                        this.editForm.patchValue({
+                            name:res.data.name,
+                            isPublic:res.data.isPublic
+                        });
+                    }, 0);
+                    
                 } else {
                     this.dialogService.showError({status:'Error', statusText:res.message});
                 }
@@ -106,7 +118,7 @@ export class CategoriesEditComponent implements OnInit, OnDestroy {
             pl.append('name', formValue.name);
             pl.append('isPublic', formValue.isPublic);
             pl.append('requestStatus', this.editData.requestStatus);
-            pl.append('photo', this.editData.photo);
+            pl.append('photo', this.uploadedPhoto || this.editData.photo);
             
             this.categoryService.updateCategory(pl).subscribe({
                 next:((res:any) => {
@@ -125,6 +137,28 @@ export class CategoriesEditComponent implements OnInit, OnDestroy {
                     this.dialogService.showError(err);
                 })
             });
+        }
+    }
+
+    addPhoto(evt:any) {
+        this.uploadedPhoto = undefined;
+        this.uploadedPhoto = <File>evt.target.files[0];
+        
+        const selectedFiles = evt.target.files;
+    
+        if (selectedFiles && selectedFiles[0]) {
+            const numberOfFiles = selectedFiles.length;
+            
+            for (let i = 0; i < numberOfFiles; i++) {
+                const reader = new FileReader();
+
+                reader.onload = (e: any) => {
+                    this.photoPreview = undefined;
+                    this.photoPreview = this.domSanitizer.bypassSecurityTrustResourceUrl(e.target.result);
+                };
+                
+                reader.readAsDataURL(selectedFiles[i]);
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ import {
 import RouteNames from "src/app/core/helpers/route-names.helper";
 
 import { CategoryService } from "src/app/core/services";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
     templateUrl:'./create.component.html',
@@ -18,6 +19,9 @@ import { CategoryService } from "src/app/core/services";
 })
 export class CategoriesCreateComponent implements OnInit, OnDestroy {
     createForm:FormGroup|any;
+
+    photoPreview:any;
+    uploadedPhoto:any;
 
     toid1:any;
 
@@ -28,6 +32,7 @@ export class CategoriesCreateComponent implements OnInit, OnDestroy {
         private toastService:ToastService,
         private categoryService:CategoryService,
         private fb:FormBuilder,
+        private domSanitizer:DomSanitizer, 
     ) {}
 
     ngOnInit(): void {
@@ -56,13 +61,13 @@ export class CategoriesCreateComponent implements OnInit, OnDestroy {
     }
 
     onCreate(formVal:any) {
-        if(this.createForm.valid) {
+        if(this.createForm.valid && this.uploadedPhoto) {
             this.spinnerService.loading.next(true);
 
             const pl = new FormData();
             pl.append('name', formVal.name);
             pl.append('isPublic', formVal.isPublic);
-            pl.append('photo','');
+            pl.append('photo', this.uploadedPhoto);
             pl.append('requestStatus','1');
 
             this.categoryService.createCategory(pl).subscribe({
@@ -82,6 +87,30 @@ export class CategoriesCreateComponent implements OnInit, OnDestroy {
                     this.dialogService.showError(err);
                 })
             });
+        } else {
+            this.dialogService.showWarning('Please upload a photo.');
+        }
+    }
+
+    addPhoto(evt:any) {
+        this.uploadedPhoto = undefined;
+        this.uploadedPhoto = <File>evt.target.files[0];
+        
+        const selectedFiles = evt.target.files;
+    
+        if (selectedFiles && selectedFiles[0]) {
+            const numberOfFiles = selectedFiles.length;
+            
+            for (let i = 0; i < numberOfFiles; i++) {
+                const reader = new FileReader();
+
+                reader.onload = (e: any) => {
+                    this.photoPreview = undefined;
+                    this.photoPreview = this.domSanitizer.bypassSecurityTrustResourceUrl(e.target.result);
+                };
+                
+                reader.readAsDataURL(selectedFiles[i]);
+            }
         }
     }
 }

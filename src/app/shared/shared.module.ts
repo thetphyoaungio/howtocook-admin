@@ -29,6 +29,7 @@ import { TableCellUserInfoComponent } from "./components/table-cell-user-info/ta
 import { HTCMonthYearPickerComponent } from "./components/date-time-pickers/month-year-picker/month-year-picker.component";
 import { HTCExportButtonComponent } from "./components/export-button/export-button.component";
 import { HTCFromToDatePickerComponent } from "./components/date-time-pickers/from-to-date-picker/from-to-date-picker.component";
+import { HTCImageUploaderComponent } from "./components/image-uploader/image-uploader.component";
 
 @NgModule({
     imports:[
@@ -60,6 +61,7 @@ import { HTCFromToDatePickerComponent } from "./components/date-time-pickers/fro
         HTCMonthYearPickerComponent,
         HTCExportButtonComponent,
         HTCFromToDatePickerComponent,
+        HTCImageUploaderComponent,
     ],
     exports:[
         HeaderComponent, 
@@ -80,6 +82,7 @@ import { HTCFromToDatePickerComponent } from "./components/date-time-pickers/fro
         HTCMonthYearPickerComponent,
         HTCExportButtonComponent,
         HTCFromToDatePickerComponent,
+        HTCImageUploaderComponent,
     ],
     providers:[DatePipe],
 })

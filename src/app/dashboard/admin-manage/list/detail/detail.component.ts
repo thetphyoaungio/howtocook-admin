@@ -76,7 +76,7 @@ export class AdminListDetailComponent implements OnInit, OnDestroy {
     }
 
     goToEdit() {
-        this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.ADMIN_MANAGEMENT}/${RouteNames.ADMIN_LIST}/${RouteNames.ADMIN_EDIT}`, this.adminId,'']);
+        this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.ADMIN_MANAGEMENT}/${RouteNames.ADMIN_LIST}/${RouteNames.ADMIN_EDIT}`, this.adminId,'-']);
     }
 
     showDeleteDialog() {

@@ -4,30 +4,7 @@
          > Create
     </div>
     
-    <div class="div-section user-profile-header">
-        <label for="file-input">
-            <ng-container *ngIf="imgPreview; else DefProfilePreView">
-                <img 
-                class="user-detail-img user-create-profile-img" 
-                style="border-radius: 5px !important;"
-                [src]="imgPreview" 
-                for="file-input">
-            </ng-container>
-            <ng-template #DefProfilePreView>
-                <img 
-                class="user-detail-img user-create-profile-img" 
-                style="border-radius: 5px !important;"
-                src="../../../../../assets/images/general/landscape-def-img.svg" 
-                for="file-input">
-            </ng-template>
-            
-            <input id="file-input" type="file" accept="image/*" (change)="addAdsPhoto($event)" style="display: none;" />
-        </label>
-        
-        <div style="padding: 10px 0;">
-            <label for="file-input" class="please-add-photo-lbl">Please add Ads Photo *</label>
-        </div>
-    </div>
+    <htc-image-uploader [image]="imgPreview" (onUploaded)="addAdsPhoto($event)"></htc-image-uploader>
     
     <div class="div-section">
         <form [formGroup]="createForm" aria-labelledby="title">

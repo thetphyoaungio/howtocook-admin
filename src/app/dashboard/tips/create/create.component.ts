@@ -19,7 +19,7 @@ import RouteNames from "src/app/core/helpers/route-names.helper";
 export class TipCreateComponent implements OnInit, OnDestroy {
     createForm:FormGroup|any;
 
-    profilePreView:string|any;
+    profilePreview:string|any;
     profileImgFile:any;
 
     isPublic$ = false;
@@ -92,8 +92,8 @@ export class TipCreateComponent implements OnInit, OnDestroy {
                 const reader = new FileReader();
 
                 reader.onload = (e: any) => {
-                    this.profilePreView = undefined;
-                    this.profilePreView = this.domSanitizer.bypassSecurityTrustResourceUrl(e.target.result);
+                    this.profilePreview = undefined;
+                    this.profilePreview = this.domSanitizer.bypassSecurityTrustResourceUrl(e.target.result);
                 };
                 
                 reader.readAsDataURL(selectedFiles[i]);
@@ -135,6 +135,8 @@ export class TipCreateComponent implements OnInit, OnDestroy {
                     this.dialogMService.showError(err);
                 })
             });
+        } else {
+            this.dialogMService.showWarning('Please upload a photo.');
         }
     }
 

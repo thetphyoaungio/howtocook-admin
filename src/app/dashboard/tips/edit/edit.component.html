@@ -11,24 +11,13 @@
                 
                 <div class="div-section user-profile-header">
                     <div style="padding: 10px 0;">
-                        <label for="file-input" class="please-add-photo-lbl">ပုံထည့်ရန်</label>
+                        <label class="please-add-photo-lbl">ပုံထည့်ရန်</label>
                     </div>
             
-                    <label for="file-input">
-                        <ng-container *ngIf="profilePreView; else DefProfilePreView">
-                            <img 
-                            [src]="profilePreView" 
-                            for="file-input"
-                            class="tip-title-photo">
-                        </ng-container>
-                        <ng-template #DefProfilePreView>
-                            <img src="../../../../assets/images/dashboard/tips/create-tip-titleImg.svg" 
-                            for="file-input" 
-                            class="tip-create-photo">
-                        </ng-template>
-                        
-                        <input id="file-input" type="file" accept="image/*" (change)="addTipPhoto($event)" style="display: none;" />
-                    </label>
+                    <htc-image-uploader 
+                    [image]="profilePreview" 
+                    [shape]="'square'" 
+                    (onUploaded)="addTipPhoto($event)"></htc-image-uploader>
                 </div>
             
                 <div class="div-section" style="padding-bottom: 0;">
@@ -162,7 +151,7 @@
             <label style="margin-left: 5px;cursor: pointer;">Cancel</label>
         </button>
     
-        <ng-container *ngIf="editForm.valid && profilePreView;else FormInvalidBtn">
+        <ng-container *ngIf="editForm.valid && profilePreview;else FormInvalidBtn">
             <button type="button" class="btn btn-outline-success user-detail-block-btn" (click)="onEdit(editForm.value)">
                 <img src="../../../../../assets/images/general/check-green-no-bg.svg" style="cursor: pointer;">
                 <label style="margin-left: 5px;cursor: pointer;">Confirm</label>

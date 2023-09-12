@@ -22,7 +22,7 @@ export class TipEditComponent implements OnInit, OnDestroy {
 
     editForm:FormGroup|any;
 
-    profilePreView:string|any;
+    profilePreview:string|any;
     profileImgFile:any;
 
     isPublic$ = false;
@@ -104,7 +104,7 @@ export class TipEditComponent implements OnInit, OnDestroy {
 
                 this.isPublic$ = res.data?.isPublic;
 
-                this.profilePreView = res.data?.photo;
+                this.profilePreview = res.data?.photo;
             }),
             error:(err => {
                 this.spinnerService.loading.next(false);
@@ -126,8 +126,8 @@ export class TipEditComponent implements OnInit, OnDestroy {
                 const reader = new FileReader();
 
                 reader.onload = (e: any) => {
-                    this.profilePreView = undefined;
-                    this.profilePreView = this.domSanitizer.bypassSecurityTrustResourceUrl(e.target.result);
+                    this.profilePreview = undefined;
+                    this.profilePreview = this.domSanitizer.bypassSecurityTrustResourceUrl(e.target.result);
                 };
                 
                 reader.readAsDataURL(selectedFiles[i]);

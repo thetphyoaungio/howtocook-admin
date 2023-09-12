@@ -4,28 +4,7 @@
          > Create
     </div>
     
-    <div class="div-section user-profile-header">
-        <label for="file-input">
-            <ng-container *ngIf="profilePreView; else DefProfilePreView">
-                <img 
-                class="user-detail-img user-create-profile-img"
-                [src]="profilePreView" 
-                for="file-input">
-            </ng-container>
-            <ng-template #DefProfilePreView>
-                <img 
-                class="user-detail-img user-create-profile-img"
-                src="../../../../../assets/images/shared/header/img_avatar.png" 
-                for="file-input">
-            </ng-template>
-            
-            <input id="file-input" type="file" accept="image/*" (change)="addAdminPhoto($event)" style="display: none;" />
-        </label>
-        
-        <div style="padding: 10px 0;">
-            <label for="file-input" class="please-add-photo-lbl">Please add Photo *</label>
-        </div>
-    </div>
+    <htc-image-uploader [image]="profilePreview" (onUploaded)="addAdminPhoto($event)"></htc-image-uploader>
     
     <div class="div-section">
         <form [formGroup]="createForm" aria-labelledby="title">
@@ -121,7 +100,7 @@
             </div>
 
             <div class="div-section" style="text-align: end;">
-                <ng-container *ngIf="createForm.valid && profilePreView;else FormInvalidBtn">
+                <ng-container *ngIf="createForm.valid && profilePreview;else FormInvalidBtn">
                     <button type="button" class="btn btn-outline-success user-detail-block-btn" (click)="onCreate(createForm.value)">
                         <img src="../../../../../assets/images/general/check-green-no-bg.svg" style="cursor: pointer;">
                         <label style="margin-left: 5px;cursor: pointer;">Create</label>

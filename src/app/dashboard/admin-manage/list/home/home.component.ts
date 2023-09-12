@@ -100,7 +100,7 @@ export class AdminListHomeComponent implements OnInit, OnDestroy {
     }
 
     editAdmin(admin:any) {
-        this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.ADMIN_MANAGEMENT}/${RouteNames.ADMIN_LIST}/${RouteNames.ADMIN_EDIT}`, admin.id,'']);
+        this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.ADMIN_MANAGEMENT}/${RouteNames.ADMIN_LIST}/${RouteNames.ADMIN_EDIT}`, admin.id,'-']);
     }
 
     deleteAdmin(admin:any) {

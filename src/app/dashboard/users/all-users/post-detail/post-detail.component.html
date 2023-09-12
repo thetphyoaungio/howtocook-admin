@@ -99,10 +99,10 @@
                 <div class="div-section" *ngFor="let step of postDetail.steps; let idx=index;">
                     <label style="font-weight: bold;">အဆင့် {{idx + 1}}</label>
                     
-                    <ng-container *ngIf="step.photo">
+                    <!-- <ng-container *ngIf="step.photo">
                         <br>
                         <img [src]="step.photo" class="post-detail-recipe-img">
-                    </ng-container>
+                    </ng-container> -->
                     
                     <label class="post-detail-title-content-label">{{step.name}}</label>
                 </div>

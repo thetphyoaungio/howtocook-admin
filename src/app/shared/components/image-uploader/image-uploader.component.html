@@ -1,0 +1,44 @@
+<div class="div-section user-profile-header">
+    <label for="file-input" style="position: relative;">
+        <ng-container *ngIf="image; else DefProfilePreView">
+            <ng-container *ngIf="shape==='square'; else CircleShape">
+                <img 
+                class="image-upload-square"
+                [src]="image" 
+                for="file-input">
+            </ng-container>
+            <ng-template #CircleShape>
+                <img 
+                class="user-detail-img user-create-profile-img"
+                [src]="image" 
+                for="file-input">
+            </ng-template>
+
+            <i class="bi bi-camera-fill image-upload-camera" [ngStyle]="{'right': shape==='square' ? '-17px':''}"></i>
+        </ng-container>
+        <ng-template #DefProfilePreView>
+            <ng-container *ngIf="shape==='square'; else CircleShape">
+                <img 
+                class="image-upload-square"
+                src="../../../../../assets/images/shared/header/img_avatar.png" 
+                for="file-input">
+            </ng-container>
+            <ng-template #CircleShape>
+                <img 
+                class="user-detail-img user-create-profile-img"
+                src="../../../../../assets/images/shared/header/img_avatar.png" 
+                for="file-input">
+            </ng-template>
+
+            <i class="bi bi-camera-fill image-upload-camera" [ngStyle]="{'right': shape==='square' ? '-17px':''}"></i>
+        </ng-template>
+        
+        <input id="file-input" type="file" accept="image/*" (change)="updateImage($event)" style="display: none;" />
+    </label>
+
+    <ng-container *ngIf="!image">
+        <div style="padding: 10px 0;">
+            <label for="file-input" class="please-add-photo-lbl">Please add Photo *</label>
+        </div>
+    </ng-container>
+</div>

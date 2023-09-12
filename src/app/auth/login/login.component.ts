@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
             this.authService.login(JSON.stringify(pl)).subscribe({
                 next:(res => {
                     this.spinnerService.loading.next(false);
-                    
+
                     if(res.user) {
                         //1. save logged-in user
                         this.localStoreService.saveLoggedInUser(this.cryptoService.encrypt(JSON.stringify(res.user)));
@@ -114,6 +114,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
                 }),
                 error:(err => {
                     this.spinnerService.loading.next(false);
+                    this.dialogService.showError(err);
                 })
             });
         }

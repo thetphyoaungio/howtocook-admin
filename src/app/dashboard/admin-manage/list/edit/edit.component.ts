@@ -175,7 +175,7 @@ export class AdminListEditComponent implements OnInit, OnDestroy {
     }
 
     goToList() {
-        !this.returnTarget && this.router.navigate([`${RouteNames.DASHBOARD}/${RouteNames.ADMIN_MANAGEMENT}`]);
+        this.returnTarget==='-' && this.router.navigate([`${RouteNames.DASHBOARD}/${RouteNames.ADMIN_MANAGEMENT}`]);
         this.returnTarget==='profile-detail' && this.router.navigate([`${RouteNames.DASHBOARD}/${RouteNames.PROFILE_UPDATE}`]);
     }
 

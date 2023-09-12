@@ -62,12 +62,13 @@ export class SettingVersionUpdateCreateComponent implements OnInit, OnDestroy {
         if(this.createForm.valid) {
             this.spinnerService.loading.next(true);
 
-            const pl = new FormData();
-            pl.append('ios_version', formVal.ios_version);
-            pl.append('android_version', formVal.android_version);
-            pl.append('playstore_link', formVal.playstore_link || '');
-            pl.append('appstore_link', formVal.appstore_link || '');
-            pl.append('forceUpdate', formVal.forceUpdate);
+            const pl = {
+                ios_version: formVal.ios_version,
+                android_version: formVal.android_version,
+                playstore_link: formVal.playstore_link || '',
+                appstore_link: formVal.appstore_link || '', 
+                forceUpdate: formVal.forceUpdate
+            };
 
             this.settingService.create_VU(pl).subscribe({
                 next:((res:any) => {
