@@ -41,3 +41,14 @@
 ::ng-deep ngx-select-dropdown .ngx-dropdown-container > button > .nsdicon-angle-down:before {
     top: 4px !important;
 }
+
+//*for mobile responsives
+@media screen and (max-width: 320px) {
+    #body-content {
+        padding: 0 !important;
+    }
+}
+
+@media screen and (max-width: 375px) {}
+
+@media screen and (max-width: 425px) {}

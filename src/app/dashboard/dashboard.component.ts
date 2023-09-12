@@ -17,6 +17,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     toid2:any;
     toid3:any;
     toid4:any;
+    toid5:any;
+    toid6:any;
 
     constructor(private toastService:ToastService,) {
         this.toastService.isShow.subscribe({
@@ -46,7 +48,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     onWindowResize(){
         if(this.headerContainerEl) {
             this.headerContainerHeight = `${this.headerContainerEl.offsetHeight}px`;
-            console.log('got this.headerContainerHeight>> ',this.headerContainerHeight);
         }
     }
 
@@ -57,11 +58,19 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.headerContainerHeight = `${this.headerContainerEl.offsetHeight}px`;
             }
         }, 1000);
+        
+        if(window.innerWidth <= 425) {
+            this.toid5 = setTimeout(() => {
+                this.setContentMaxHeight();
+            }, 1000);
+        } else {
+            this.toid6 = setTimeout(() => {
+                this.setContentMaxHeight();
+            }, 200);
+        }
     }
 
     ngAfterViewInit(): void {
-        this.setContentMaxHeight();
-
         this.toastEl = <HTMLElement>document.getElementById('htcToast');
 
         const toastCloseEl = <HTMLElement>document.getElementById('toastCloseIconID');
@@ -77,12 +86,15 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         if(this.toid2) clearTimeout(this.toid2);
         if(this.toid3) clearTimeout(this.toid3);
         if(this.toid4) clearTimeout(this.toid4);
+        if(this.toid5) clearTimeout(this.toid5);
+        if(this.toid6) clearTimeout(this.toid6);
     }
     
     setContentMaxHeight() {
-        const htcHeader = <HTMLElement>document.querySelector('htc-header');
+        const htcHeader = <HTMLElement>document.querySelector('.header-container');
         if(htcHeader) {
             const contentbody = <HTMLElement>document.querySelector('#body-content');
+
             contentbody.style.height = `${window.innerHeight - htcHeader.offsetHeight}px`;
         }
     }

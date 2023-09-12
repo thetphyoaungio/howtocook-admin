@@ -480,6 +480,9 @@ body {
     border-radius: 20px;
     cursor: pointer;
 }
+.body-content-container {
+    padding: 10px;
+}
 
 //*Bootstrap controls customizes!
 .form-control {
@@ -619,4 +622,80 @@ body {
     .dialog-modal-title {
         font-size: 23px !important;
     }
+    .post-detail-title-content-label{
+        font-size: 14px !important;
+    }
 }
+
+//*for mobile responsives
+@media screen and (max-width: 425px) {
+    body {
+        font-size: 12px !important;
+    }
+    .logo-img {
+        width: 60px !important;
+    }
+    .header-title {
+        font-size: 37px !important;
+    }
+    .login-body-img {
+        width: 315px !important;
+    }
+    .login-form-container {
+        background-position: left !important;
+    }
+    .htc-flex-container {
+        margin-right: 7% !important;
+    }
+    .login-form-layout {
+        color: goldenrod !important;
+    }
+    .dashboard-logo-title-container {
+        margin-top: 5px !important;
+    }
+    .dashboard-logo {
+        width: 40px !important;
+    }
+    .dashboard-title {
+        font-size: 18px !important;
+    }
+    .menu-items-container {
+        padding: 0 !important;
+    }
+    .menu-sidebar-onoff-img {
+        width: 15px !important;
+    }
+    .htc-noti {
+        padding: 6px 8px !important;
+        font-size: 12px !important;
+    }
+    .profile-img {
+        width: 50px !important;
+    }
+    .header-profile-icon-down {
+        font-size: 14px !important;
+    }
+    .main-title, .user-detail-nav-links {
+        font-size: 1.2rem !important;
+    }
+    .table-header {
+        font-size: 14px !important;
+    }
+    button, body, .table-body, .form-control, .please-add-photo-lbl {
+        font-size: 13px !important;
+    }
+    .tip-title-photo {
+        width: 75px !important;
+        height: 75px !important;
+    }
+    .dialog-modal-title {
+        font-size: 18px !important;
+    }
+    .post-detail-title-content-label{
+        font-size: 12px !important;
+    }
+}
+
+@media screen and (max-width: 375px) {}
+
+@media screen and (max-width: 425px) {}

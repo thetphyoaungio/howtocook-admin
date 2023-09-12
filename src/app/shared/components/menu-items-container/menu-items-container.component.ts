@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy } from "@angular/core";
+import { Component, AfterViewInit, OnDestroy, HostListener } from "@angular/core";
 import { Router, NavigationEnd } from "@angular/router";
 
 import { 
@@ -12,6 +12,14 @@ import { MENUS } from "src/app/core/helpers/menu-list.helper";
 import { MenuLabels } from "src/app/core/helpers/menu-label.helper";
 
 const MenuIconPath = '../../../../assets/images/shared/menu-sidebar';
+
+const MenusWithChilds = [
+    RouteNames.REPORTS, 
+    RouteNames.CATEGORIES, 
+    RouteNames.USERS, 
+    RouteNames.ADMIN_MANAGEMENT, 
+    RouteNames.SETTING,
+];//for selected-menu click toggle stage
 
 @Component({
     selector:'menu-items-container',
@@ -28,11 +36,14 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
 
     htcRoute:any;
 
+    deviceInnerWidth = 0;
+
     toid1:any;
     toid2:any;
     toid3:any;
     toid4:any;
     toid5:any;
+    toid6:any;
 
     constructor(
         private headerMenuSidebarOnOffService:HeaderMenuSidebarOnOffService, 
@@ -40,6 +51,8 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
         private menuRouterService:MenuRouterService,
         private router:Router,
     ) {
+        this.deviceInnerWidth = window.innerWidth;
+
         this.headerMenuSidebarOnOffService.menusidebarStage.subscribe({
             next:(v => {
                 this.isMenuCollapse = v === 0;
@@ -93,8 +106,22 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
         });
     }
 
+    @HostListener('window:resize', ['$event'])
+    onWindowResize(){
+        this.deviceInnerWidth = window.innerWidth;
+    }
+
     ngAfterViewInit(): void {
         this.setMaxHeightMenuContainer();
+
+        setTimeout(() => {
+            if(this.deviceInnerWidth <= 425) {
+                const menuOnOffSidebarImg = <HTMLElement>document.querySelector('.menu-sidebar-onoff-img');
+                if(menuOnOffSidebarImg) {
+                    menuOnOffSidebarImg.click();
+                }
+            }
+        }, 0);
     }
 
     ngOnDestroy(): void {
@@ -103,6 +130,7 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
         if(this.toid3) clearTimeout(this.toid3);
         if(this.toid4) clearTimeout(this.toid4);
         if(this.toid5) clearTimeout(this.toid5);
+        if(this.toid6) clearTimeout(this.toid6);
     }
 
     onClickMenuItem(menu:any) {
@@ -119,8 +147,7 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
 
         this.menuRouterService.goto(submenu.menuLabel);
     }
-
-    //UI funs!
+    
     updateSelectedNoChildsMenuUI(menu:any) {
         if(!this.isMenuCollapse) {
             this.changeUIMenuBgFontColor(`menu-${menu.id}`, '#C43704', 'white');
@@ -222,184 +249,215 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
         if(logoTxtEl) {
             const menuCtnrEl = <HTMLElement>document.querySelector('.menu-items-container');
             if(menuCtnrEl) {
-                menuCtnrEl.style.maxHeight = `${window.innerHeight - logoTxtEl.offsetHeight}px`;
+                let maxHeight$ = window.innerHeight - logoTxtEl.offsetHeight;
+                //if(window.innerWidth <= 425) {
+                    const header = <HTMLElement>document.querySelector('.header-container');
+                    if(header) maxHeight$ -= header.offsetHeight;
+                //}
+
+                menuCtnrEl.style.maxHeight = `${maxHeight$}px`;
                 menuCtnrEl.style.overflowY = 'auto';
             }
         }
     }
 
     RouteToMenuUIUpdateHandler() {
-        switch(this.htcRoute[2]){
-            case RouteNames.HOME:{
-                this.selectedMenu = MENUS[0];
+        if(MenusWithChilds.includes(this.htcRoute[2]) 
+        && ((this.selectedMenu?.menuLabel === MenuLabels.ADMIN_MANAGEMENT ? 
+        RouteNames.ADMIN_MANAGEMENT : this.selectedMenu?.menuLabel)?.toLowerCase() === this.htcRoute[2])) {
+            //console.log('this.selectedMenu>> ', this.selectedMenu)
+            //console.log('this.htcRoute[2]>> ', this.htcRoute[2])
 
-                this.updateSelectedNoChildsMenuUI(MENUS[0]);
-                
-                break;
-            }
-            case RouteNames.TIPS:{
-                this.selectedMenu = MENUS[1];
+            //menu items are set to initial stage
+            this.menus.forEach((x:any) => {
+                this.changeUIMenuBgFontColor(`menu-${x.id}`, 'none', 'black');
+                this.changeUIMenuIconColor(x, 'black', `menu-${x.id}`);
 
-                this.updateSelectedNoChildsMenuUI(MENUS[1]);
-                
-                break;
-            }
-            case RouteNames.REPORTS:{
-                this.selectedMenu = MENUS[2];
-
-                switch(this.htcRoute[3]){
-                    /* case RouteNames.ADS_REPORT:{
-                        this.selectedSubMenu = MENUS[2].childs[0];
-
-                        break;
-                    } */
-                    case RouteNames.NEW_USERS_REPORT:{
-                        this.selectedSubMenu = MENUS[2].childs[0];
-                        
-                        break;
-                    }
-                    case RouteNames.DATE_REPORT:{
-                        this.selectedSubMenu = MENUS[2].childs[1];
-
-                        break;
-                    }
-                    case RouteNames.USERS_REPORT:{
-                        this.selectedSubMenu = MENUS[2].childs[2];
-                        
-                        break;
-                    }
-                    case RouteNames.CHEF_USERS_REPORT:{
-                        this.selectedSubMenu = MENUS[2].childs[3];
-                        
-                        break;
-                    }
+                //childs menu set to collapse
+                if(x.childs.length>0) {
+                    this.collapseExpendSubMenu(x, 'submenu-collapse');
+                    this.changeUIMenuUpDownIcon(x, 'black/chevron-down.svg');
                 }
+            });
 
-                this.updateSelectedWithChildsMenuUI(MENUS[2]);
-                
-                break;
-            }
-            case RouteNames.CATEGORIES:{
-                this.selectedMenu = MENUS[3];
+            this.toid6 = setTimeout(() => {
+                this.selectedMenu = undefined;
+            }, 0);
 
-                switch(this.htcRoute[3]){
-                    case RouteNames.ALL_CATEGORIES:{
-                        this.selectedSubMenu = MENUS[3].childs[0];
+        } else {
+            switch(this.htcRoute[2]){
 
-                        break;
-                    }
-                    case RouteNames.REQUESTED_CATEGORIES:{
-                        this.selectedSubMenu = MENUS[3].childs[1];
-                        
-                        break;
-                    }
+                case RouteNames.HOME:{
+                    this.selectedMenu = MENUS[0];
+    
+                    this.updateSelectedNoChildsMenuUI(MENUS[0]);
+                    
+                    break;
                 }
-
-                this.updateSelectedWithChildsMenuUI(MENUS[3]);
-                
-                break;
-            }
-            case RouteNames.USERS:{
-                this.selectedMenu = MENUS[4];
-
-                switch(this.htcRoute[3]){
-                    case RouteNames.ALL_USERS:{
-                        this.selectedSubMenu = MENUS[4].childs[0];
-
-                        break;
-                    }
-                    case RouteNames.NORMAL_USERS:{
-                        this.selectedSubMenu = MENUS[4].childs[1];
-                        
-                        break;
-                    }
-                    case RouteNames.CHEF_USERS:{
-                        this.selectedSubMenu = MENUS[4].childs[2];
-                        
-                        break;
-                    }
-                    case RouteNames.REQUEST_CHEF_USERS:{
-                        this.selectedSubMenu = MENUS[4].childs[3];
-                        
-                        break;
-                    }
-                    case RouteNames.BLOCK_LIST_USERS:{
-                        this.selectedSubMenu = MENUS[4].childs[4];
-                        
-                        break;
-                    }
+                case RouteNames.TIPS:{
+                    this.selectedMenu = MENUS[1];
+    
+                    this.updateSelectedNoChildsMenuUI(MENUS[1]);
+                    
+                    break;
                 }
-                
-                if(!['date-report-daily-posts', 'date-report-daily-new-users','users-report']
-                .includes(this.htcRoute[this.htcRoute.length-1])) {
-                    this.updateSelectedWithChildsMenuUI(MENUS[4]);
+                case RouteNames.REPORTS:{
+                    this.selectedMenu = MENUS[2];
+    
+                    switch(this.htcRoute[3]){
+                        /* case RouteNames.ADS_REPORT:{
+                            this.selectedSubMenu = MENUS[2].childs[0];
+    
+                            break;
+                        } */
+                        case RouteNames.NEW_USERS_REPORT:{
+                            this.selectedSubMenu = MENUS[2].childs[0];
+                            
+                            break;
+                        }
+                        case RouteNames.DATE_REPORT:{
+                            this.selectedSubMenu = MENUS[2].childs[1];
+    
+                            break;
+                        }
+                        case RouteNames.USERS_REPORT:{
+                            this.selectedSubMenu = MENUS[2].childs[2];
+                            
+                            break;
+                        }
+                        case RouteNames.CHEF_USERS_REPORT:{
+                            this.selectedSubMenu = MENUS[2].childs[3];
+                            
+                            break;
+                        }
+                    }
+    
+                    this.updateSelectedWithChildsMenuUI(MENUS[2]);
+                    
+                    break;
                 }
-                
-                break;
-            }
-            case RouteNames.ADMIN_MANAGEMENT:{
-                this.selectedMenu = MENUS[5];
-
-                switch(this.htcRoute[3]){
-                    case RouteNames.ADMIN_LIST:{
-                        this.selectedSubMenu = MENUS[5].childs[0];
-
-                        break;
+                case RouteNames.CATEGORIES:{
+                    this.selectedMenu = MENUS[3];
+    
+                    switch(this.htcRoute[3]){
+                        case RouteNames.ALL_CATEGORIES:{
+                            this.selectedSubMenu = MENUS[3].childs[0];
+    
+                            break;
+                        }
+                        case RouteNames.REQUESTED_CATEGORIES:{
+                            this.selectedSubMenu = MENUS[3].childs[1];
+                            
+                            break;
+                        }
                     }
+    
+                    this.updateSelectedWithChildsMenuUI(MENUS[3]);
+                    
+                    break;
                 }
-
-                if(!['profile-detail'].includes(this.htcRoute[this.htcRoute.length-1])) {
-                    this.updateSelectedWithChildsMenuUI(MENUS[5]);
+                case RouteNames.USERS:{
+                    this.selectedMenu = MENUS[4];
+    
+                    switch(this.htcRoute[3]){
+                        case RouteNames.ALL_USERS:{
+                            this.selectedSubMenu = MENUS[4].childs[0];
+    
+                            break;
+                        }
+                        case RouteNames.NORMAL_USERS:{
+                            this.selectedSubMenu = MENUS[4].childs[1];
+                            
+                            break;
+                        }
+                        case RouteNames.CHEF_USERS:{
+                            this.selectedSubMenu = MENUS[4].childs[2];
+                            
+                            break;
+                        }
+                        case RouteNames.REQUEST_CHEF_USERS:{
+                            this.selectedSubMenu = MENUS[4].childs[3];
+                            
+                            break;
+                        }
+                        case RouteNames.BLOCK_LIST_USERS:{
+                            this.selectedSubMenu = MENUS[4].childs[4];
+                            
+                            break;
+                        }
+                    }
+                    
+                    if(!['date-report-daily-posts', 'date-report-daily-new-users','users-report']
+                    .includes(this.htcRoute[this.htcRoute.length-1])) {
+                        this.updateSelectedWithChildsMenuUI(MENUS[4]);
+                    }
+                    
+                    break;
                 }
-                
-                break;
-            }
-            case RouteNames.CUSTOM_FEEDBACK:{
-                this.selectedMenu = MENUS[6];
-
-                this.updateSelectedNoChildsMenuUI(MENUS[6]);
-                
-                break;
-            }
-            case RouteNames.SETTING:{
-                this.selectedMenu = MENUS[7];
-
-                switch(this.htcRoute[3]){
-                    case RouteNames.SETTING_FAQS_LIST:{
-                        this.selectedSubMenu = MENUS[7].childs[0];
-
-                        break;
+                case RouteNames.ADMIN_MANAGEMENT:{
+                    this.selectedMenu = MENUS[5];
+    
+                    switch(this.htcRoute[3]){
+                        case RouteNames.ADMIN_LIST:{
+                            this.selectedSubMenu = MENUS[5].childs[0];
+    
+                            break;
+                        }
                     }
-                    case RouteNames.SETTING_CUSTOM_ADS_LIST:{
-                        this.selectedSubMenu = MENUS[7].childs[1];
-
-                        break;
+    
+                    if(!['profile-detail'].includes(this.htcRoute[this.htcRoute.length-1])) {
+                        this.updateSelectedWithChildsMenuUI(MENUS[5]);
                     }
-                    case RouteNames.SETTING_VERSION_UPDATE_LIST:{
-                        this.selectedSubMenu = MENUS[7].childs[2];
-
-                        break;
-                    }
+                    
+                    break;
                 }
-
-                this.updateSelectedWithChildsMenuUI(MENUS[7]);
-                
-                break;
-            }
-            case RouteNames.PROFILE_UPDATE:{
-                //other menu items are set to initial stage
-                this.menus.forEach((x:any) => {
-                    this.changeUIMenuBgFontColor(`menu-${x.id}`, 'none', 'black');
-                    this.changeUIMenuIconColor(x, 'black', `menu-${x.id}`);
-
-                    //childs menu set to collapse
-                    if(x.childs.length>0) {
-                        this.collapseExpendSubMenu(x, 'submenu-collapse');
-                        this.changeUIMenuUpDownIcon(x, 'black/chevron-down.svg');
+                case RouteNames.CUSTOM_FEEDBACK:{
+                    this.selectedMenu = MENUS[6];
+    
+                    this.updateSelectedNoChildsMenuUI(MENUS[6]);
+                    
+                    break;
+                }
+                case RouteNames.SETTING:{
+                    this.selectedMenu = MENUS[7];
+    
+                    switch(this.htcRoute[3]){
+                        case RouteNames.SETTING_FAQS_LIST:{
+                            this.selectedSubMenu = MENUS[7].childs[0];
+    
+                            break;
+                        }
+                        case RouteNames.SETTING_CUSTOM_ADS_LIST:{
+                            this.selectedSubMenu = MENUS[7].childs[1];
+    
+                            break;
+                        }
+                        case RouteNames.SETTING_VERSION_UPDATE_LIST:{
+                            this.selectedSubMenu = MENUS[7].childs[2];
+    
+                            break;
+                        }
                     }
-                });
-
-                break;
+    
+                    this.updateSelectedWithChildsMenuUI(MENUS[7]);
+                    
+                    break;
+                }
+                case RouteNames.PROFILE_UPDATE:{
+                    //other menu items are set to initial stage
+                    this.menus.forEach((x:any) => {
+                        this.changeUIMenuBgFontColor(`menu-${x.id}`, 'none', 'black');
+                        this.changeUIMenuIconColor(x, 'black', `menu-${x.id}`);
+    
+                        //childs menu set to collapse
+                        if(x.childs.length>0) {
+                            this.collapseExpendSubMenu(x, 'submenu-collapse');
+                            this.changeUIMenuUpDownIcon(x, 'black/chevron-down.svg');
+                        }
+                    });
+    
+                    break;
+                }
             }
         }
     }

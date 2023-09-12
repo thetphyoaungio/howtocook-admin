@@ -7,7 +7,7 @@ const reportsIcon = 'reports.svg';
 const categoriesIcon = 'categories.svg';
 const userIcon = 'user.svg';
 const adminIcon = 'admin-manage.svg';
-const feedbackIcon = 'customer-feedbacks.svg';
+const feedbackIcon = 'customer-feedbacks.svg';//customer-feedbacks
 const settingIcon = 'setting.svg';
 
 const logoutIcon = 'log-out.svg';
@@ -175,7 +175,7 @@ const MENUS = [
         iconfile:logoutIcon,
         menuLabel:MenuLabels.LOGOUT,
         childs:[],
-        id:'7',
+        id:'9',
     },
 ];
 
