@@ -77,6 +77,7 @@ export class SettingCustomAdsHomeComponent implements OnInit, OnDestroy {
                     this.customAds = res.data.map((x:any) => ({
                         id: x.id,
                         url: x.url,
+                        link_url: (x.url && this.getLinkURL(x.url)) || '',
                         photo: x.photo,
                         isActive: x.isActive,
                         createdAt: x.createdAt && this.datePipe.transform(this.dateTimeService.createDateForSafariMac_5(x.createdAt), 'dd MMM yyyy'),
@@ -167,5 +168,9 @@ export class SettingCustomAdsHomeComponent implements OnInit, OnDestroy {
                 this.dialogService.showError(err);
             })
         });
+    }
+
+    getLinkURL(url:string) {
+        return (url.split('.')).findIndex((x:any) => x.includes('http')) >= 0 ? url : `https://${url}`;
     }
 }

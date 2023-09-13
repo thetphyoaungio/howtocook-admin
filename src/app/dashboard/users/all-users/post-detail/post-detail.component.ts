@@ -123,12 +123,12 @@ export class AllUsersPostDetailComponent implements OnInit, OnDestroy {
 
         } else if(target==='user-detail') {
             this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.USERS}/${RouteNames.ALL_USERS}/${RouteNames.ALL_USERS_USER_DETAIL}`, 
-            this.postDetail.userId,'']);
+            this.postDetail.userId,'-']);
             
         } else if(!target) {
             if(this.invoker === 'date-report-daily-posts') {
                 this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.REPORTS}/${RouteNames.DATE_REPORT}/${RouteNames.DATE_REPORT_DAILY_POSTS}`,
-                '','']);
+                '-','-']);
             }
         }
     }

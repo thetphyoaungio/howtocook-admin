@@ -167,7 +167,7 @@ export class AllUsersUserDetailComponent implements OnInit, OnDestroy {
     goToList() {
         if(this.invoker === 'date-report-daily-new-users') {
             this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.REPORTS}/${RouteNames.DATE_REPORT}/${RouteNames.DATE_REPORT_DAILY_NEW_USERS}`,
-            '','']);
+            '-','-']);
 
         } else if(this.invoker === 'users-report') {
             this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.REPORTS}/${RouteNames.USERS_REPORT}`]);

@@ -51,8 +51,9 @@
                     </div>
                     
                     <div class="p-2" style="width: 30%;">
-                        <a [href]="'https://' + cAds.url" [title]="cAds.url" target="_blank"
-                        ><span class="table-cell-truncate-2">{{cAds.url}}</span></a>
+                        <a [href]="cAds.link_url" [title]="cAds.url" target="_blank">
+                            <span class="table-cell-truncate-2">{{cAds.url}}</span>
+                        </a>
                     </div>
 
                     <div class="p-2" style="width: 20%;">

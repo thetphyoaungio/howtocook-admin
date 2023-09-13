@@ -144,7 +144,7 @@ export class AllUsersHomeComponent implements OnInit, OnDestroy {
 
     gotoDetail(user:any) {
         this.router.navigate([`/${RouteNames.DASHBOARD}/${RouteNames.USERS}/${RouteNames.ALL_USERS}/${RouteNames.ALL_USERS_USER_DETAIL}`, 
-        user.id, '']);
+        user.id, '-']);
     }
 
     dropDownSelectValueChange() {

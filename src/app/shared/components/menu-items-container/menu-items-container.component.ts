@@ -134,48 +134,15 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
     }
 
     onClickMenuItem(menu:any) {
-        if(menu.menuLabel === MenuLabels.LOGOUT) {
-            this.dialogModalService.showLogout('Are you sure to logout?');
+        this.isClickSubMenu = false;
 
-        } else {
-            /* if(MenusWithChilds.includes(this.htcRoute[2]) 
-            && ((this.selectedMenu?.menuLabel === MenuLabels.ADMIN_MANAGEMENT ? 
-            RouteNames.ADMIN_MANAGEMENT : this.selectedMenu?.menuLabel)?.toLowerCase() === this.htcRoute[2])
-            && !this.isClickSubMenu) {
-                
-                //menu items are set to initial stage
-                this.menus.forEach((x:any) => {
-                    this.changeUIMenuBgFontColor(`menu-${x.id}`, 'none', 'black');
-                    this.changeUIMenuIconColor(x, 'black', `menu-${x.id}`);
-
-                    //childs menu set to collapse
-                    if(x.childs.length>0) {
-                        this.collapseExpendSubMenu(x, 'submenu-collapse');
-                        this.changeUIMenuUpDownIcon(x, 'black/chevron-down.svg');
-                    }
-                });
-
-                this.toid6 = setTimeout(() => {
-                    this.selectedMenu = undefined;
-                }, 0);
-
-                this.isClickSubMenu = false;
-
-            } else {
-                this.menuRouterService.goto(menu.menuLabel);
-
-                this.isClickSubMenu = false;
-            } */
-
-            this.menuRouterService.goto(menu.menuLabel);
-        } 
+        menu.menuLabel === MenuLabels.LOGOUT && this.dialogModalService.showLogout('Are you sure to logout?');
+        menu.menuLabel !== MenuLabels.LOGOUT && this.menuRouterService.goto(menu.menuLabel);
     }
 
     isClickSubMenu=false;
     onClickSubMenuItem(submenu:any, evt:any){
         evt.stopPropagation();
-
-        console.log('Hihi...')
 
         this.isClickSubMenu = true;
 
@@ -279,30 +246,17 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
 
     //set max height of MenuContainer
     setMaxHeightMenuContainer() {
-        const logoTxtEl = <HTMLElement>document.querySelector('dashboard-logo-title');
-        if(logoTxtEl) {
-            const menuCtnrEl = <HTMLElement>document.querySelector('.menu-items-container');
-            if(menuCtnrEl) {
-                let maxHeight$ = window.innerHeight - logoTxtEl.offsetHeight;
-                //if(window.innerWidth <= 425) {
-                    const header = <HTMLElement>document.querySelector('.header-container');
-                    if(header) maxHeight$ -= header.offsetHeight;
-                //}
+        const sideNavEl = <HTMLElement>document.querySelector('#mySidenav');
+        const headerEl = <HTMLElement>document.querySelector('.header-container');
+        const menuCtnrEl = <HTMLElement>document.querySelector('.menu-items-container');
 
-                menuCtnrEl.style.maxHeight = `${maxHeight$}px`;
-                menuCtnrEl.style.overflowY = 'auto';
-            }
-        }
+        menuCtnrEl.style.maxHeight = `${sideNavEl.offsetHeight - (headerEl.offsetHeight - 14)}px`;
+        menuCtnrEl.style.overflowY = 'auto';
     }
 
     RouteToMenuUIUpdateHandler() {
-        if(MenusWithChilds.includes(this.htcRoute[2]) 
-        && ((this.selectedMenu?.menuLabel === MenuLabels.ADMIN_MANAGEMENT ? 
-        RouteNames.ADMIN_MANAGEMENT : this.selectedMenu?.menuLabel)?.toLowerCase() === this.htcRoute[2])
-        && !this.isClickSubMenu) {
-            //console.log('this.selectedMenu>> ', this.selectedMenu)
-            //console.log('this.htcRoute[2]>> ', this.htcRoute[2])
-
+        if(this.checkforToggleMenuSideBar()) {
+            
             //menu items are set to initial stage
             this.menus.forEach((x:any) => {
                 this.changeUIMenuBgFontColor(`menu-${x.id}`, 'none', 'black');
@@ -318,8 +272,6 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
             this.toid6 = setTimeout(() => {
                 this.selectedMenu = undefined;
             }, 0);
-
-            this.isClickSubMenu = false;
 
         } else {
             switch(this.htcRoute[2]){
@@ -496,8 +448,6 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
                     break;
                 }
             }
-
-            this.isClickSubMenu = false;
         }
     }
 
@@ -616,5 +566,14 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
                 break;
             }
         }
+    }
+
+    checkforToggleMenuSideBar():boolean {
+        this.htcRoute.length > 5 && (this.isClickSubMenu = true);
+
+        return MenusWithChilds.includes(this.htcRoute[2]) 
+        && ((this.selectedMenu?.menuLabel === MenuLabels.ADMIN_MANAGEMENT ? 
+        RouteNames.ADMIN_MANAGEMENT : this.selectedMenu?.menuLabel)?.toLowerCase() === this.htcRoute[2])
+        && !this.isClickSubMenu;
     }
 }
