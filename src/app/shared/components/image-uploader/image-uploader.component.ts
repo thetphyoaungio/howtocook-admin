@@ -7,6 +7,7 @@ import { Component, Input, Output, EventEmitter } from "@angular/core";
 export class HTCImageUploaderComponent {
     @Input() image:string|any;
     @Input() shape:string|any;
+    @Input() type:string|any;
 
     @Output() onUploaded = new EventEmitter();
 

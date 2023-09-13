@@ -138,9 +138,10 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
             this.dialogModalService.showLogout('Are you sure to logout?');
 
         } else {
-            if(MenusWithChilds.includes(this.htcRoute[2]) 
+            /* if(MenusWithChilds.includes(this.htcRoute[2]) 
             && ((this.selectedMenu?.menuLabel === MenuLabels.ADMIN_MANAGEMENT ? 
-            RouteNames.ADMIN_MANAGEMENT : this.selectedMenu?.menuLabel)?.toLowerCase() === this.htcRoute[2])) {
+            RouteNames.ADMIN_MANAGEMENT : this.selectedMenu?.menuLabel)?.toLowerCase() === this.htcRoute[2])
+            && !this.isClickSubMenu) {
                 
                 //menu items are set to initial stage
                 this.menus.forEach((x:any) => {
@@ -158,14 +159,25 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
                     this.selectedMenu = undefined;
                 }, 0);
 
+                this.isClickSubMenu = false;
+
             } else {
                 this.menuRouterService.goto(menu.menuLabel);
-            }
+
+                this.isClickSubMenu = false;
+            } */
+
+            this.menuRouterService.goto(menu.menuLabel);
         } 
     }
 
+    isClickSubMenu=false;
     onClickSubMenuItem(submenu:any, evt:any){
         evt.stopPropagation();
+
+        console.log('Hihi...')
+
+        this.isClickSubMenu = true;
 
         this.menuRouterService.goto(submenu.menuLabel);
     }
@@ -284,9 +296,10 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
     }
 
     RouteToMenuUIUpdateHandler() {
-        /* if(MenusWithChilds.includes(this.htcRoute[2]) 
+        if(MenusWithChilds.includes(this.htcRoute[2]) 
         && ((this.selectedMenu?.menuLabel === MenuLabels.ADMIN_MANAGEMENT ? 
-        RouteNames.ADMIN_MANAGEMENT : this.selectedMenu?.menuLabel)?.toLowerCase() === this.htcRoute[2])) {
+        RouteNames.ADMIN_MANAGEMENT : this.selectedMenu?.menuLabel)?.toLowerCase() === this.htcRoute[2])
+        && !this.isClickSubMenu) {
             //console.log('this.selectedMenu>> ', this.selectedMenu)
             //console.log('this.htcRoute[2]>> ', this.htcRoute[2])
 
@@ -306,7 +319,9 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
                 this.selectedMenu = undefined;
             }, 0);
 
-        } */ //else {
+            this.isClickSubMenu = false;
+
+        } else {
             switch(this.htcRoute[2]){
 
                 case RouteNames.HOME:{
@@ -481,7 +496,9 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
                     break;
                 }
             }
-        //}
+
+            this.isClickSubMenu = false;
+        }
     }
 
     RouteToChildMenuUIUpdateHandler(menu:any) {

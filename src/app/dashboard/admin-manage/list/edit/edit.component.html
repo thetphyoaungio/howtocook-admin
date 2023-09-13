@@ -4,7 +4,7 @@
          > Edit
     </div>
 
-    <htc-image-uploader [image]="profilePreview" (onUploaded)="addAdminPhoto($event)"></htc-image-uploader>
+    <htc-image-uploader [image]="profilePreview" [type]="'human'" (onUploaded)="addAdminPhoto($event)"></htc-image-uploader>
     
     <div class="div-section user-profile-header">
         <label class="user-profile-name">{{adminDetail?.userName}}</label>

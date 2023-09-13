@@ -18,16 +18,32 @@
         </ng-container>
         <ng-template #DefProfilePreView>
             <ng-container *ngIf="shape==='square'; else CircleShape">
-                <img 
-                class="image-upload-square"
-                src="../../../../../assets/images/shared/header/img_avatar.png" 
-                for="file-input">
+                <ng-container *ngIf="type==='human';else ObjectImage">
+                    <img 
+                    class="image-upload-square"
+                    src="../../../../../assets/images/shared/header/img_avatar.png" 
+                    for="file-input">
+                </ng-container>
+                <ng-template #ObjectImage>
+                    <img 
+                    class="image-upload-square"
+                    src="../../../../assets/images/general/landscape-def-img.svg" 
+                    for="file-input">
+                </ng-template>
             </ng-container>
             <ng-template #CircleShape>
-                <img 
-                class="user-detail-img user-create-profile-img"
-                src="../../../../../assets/images/shared/header/img_avatar.png" 
-                for="file-input">
+                <ng-container *ngIf="type==='human';else ObjectImage">
+                    <img 
+                    class="user-detail-img user-create-profile-img"
+                    src="../../../../../assets/images/shared/header/img_avatar.png" 
+                    for="file-input">
+                </ng-container>
+                <ng-template #ObjectImage>
+                    <img 
+                    class="user-detail-img user-create-profile-img"
+                    src="../../../../assets/images/general/landscape-def-img.svg" 
+                    for="file-input">
+                </ng-template>
             </ng-template>
 
             <i class="bi bi-camera-fill image-upload-camera" [ngStyle]="{'right': shape==='square' ? '-17px':''}"></i>
