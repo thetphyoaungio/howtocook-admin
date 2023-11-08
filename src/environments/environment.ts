@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
 
-  APIEP:'https://howtocook.click',//https://api.musiclink.click
+  APIEP:'http://13.250.53.111',//https://howtocook.click',//https://api.musiclink.click
   APIPATH:'api/v1',
   ADMUSER:'adminUser',
   MOBUSER:'mobileUser',

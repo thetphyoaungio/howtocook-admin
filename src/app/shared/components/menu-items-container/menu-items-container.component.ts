@@ -44,6 +44,7 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
     toid4:any;
     toid5:any;
     toid6:any;
+    toid7:any;
 
     constructor(
         private headerMenuSidebarOnOffService:HeaderMenuSidebarOnOffService, 
@@ -114,7 +115,7 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
     ngAfterViewInit(): void {
         this.setMaxHeightMenuContainer();
 
-        setTimeout(() => {
+        this.toid7 = setTimeout(() => {
             if(this.deviceInnerWidth <= 425) {
                 const menuOnOffSidebarImg = <HTMLElement>document.querySelector('.menu-sidebar-onoff-img');
                 if(menuOnOffSidebarImg) {
@@ -131,6 +132,7 @@ export class MenuItemsContainerComponent implements AfterViewInit, OnDestroy {
         if(this.toid4) clearTimeout(this.toid4);
         if(this.toid5) clearTimeout(this.toid5);
         if(this.toid6) clearTimeout(this.toid6);
+        if(this.toid7) clearTimeout(this.toid7);
     }
 
     onClickMenuItem(menu:any) {

@@ -95,6 +95,8 @@ export class CategoriesCreateComponent implements OnInit, OnDestroy {
     addPhoto(evt:any) {
         this.uploadedPhoto = undefined;
         this.uploadedPhoto = <File>evt.target.files[0];
+        console.log('got this.uploadedPhoto>> ',this.uploadedPhoto);
+        
         
         const selectedFiles = evt.target.files;
     
